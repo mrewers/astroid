@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "snowpack dev",
     "build": "snowpack build",
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "test": "jest ./"
   },
   "dependencies": {
     "preact": "^10.5.15"
@@ -14,8 +15,10 @@
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
     "@cryptopapers/eslint-config": "^2.1.0",
     "@snowpack/plugin-typescript": "^1.2.1",
+    "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^4.0.0",
     "@typescript-eslint/parser": "^4.0.0",
     "eslint": "^7.30.0",
