@@ -1,6 +1,7 @@
 import { checkChar } from '../checkChar';
 
 const chars = {
+  carriage: '\r',
   letter: 'a',
   newLine: '\n',
   number: '1',
@@ -22,6 +23,7 @@ describe('Character check', () => {
   });
 
   it('correctly identifies whitespace', () => {
+    expect(checkChar.isWhiteSpace(chars.carriage)).toStrictEqual(true);
     expect(checkChar.isWhiteSpace(chars.newLine)).toStrictEqual(true);
     expect(checkChar.isWhiteSpace(chars.space)).toStrictEqual(true);
     expect(checkChar.isWhiteSpace(chars.tab)).toStrictEqual(true);
