@@ -26,6 +26,16 @@ export const isSingleQuote = (char: string): boolean => char === "'";
 export const isQuote = (char: string): boolean =>
   isBacktick(char) || isDoubleQuote(char) || isSingleQuote(char);
 
+// Punctuation
+export const isComma = (char: string): boolean => char === ',';
+export const isColon = (char: string): boolean => char === ':';
+export const isExclamation = (char: string): boolean => char === '!';
+export const isPeriod = (char: string): boolean => char === '.';
+export const isQuestion = (char: string): boolean => char === '?';
+export const isSemicolon = (char: string): boolean => char === ';';
+
+export const isNumeric = (char: string): boolean => isNumber(char) || isPeriod(char);
+
 export const checkChar = {
   isBacktick,
   isBracesClose,
