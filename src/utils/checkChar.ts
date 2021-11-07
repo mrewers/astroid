@@ -19,17 +19,26 @@ export const isBracketClose = (char: string): boolean => char === ']';
 export const isParenOpen = (char: string): boolean => char === '(';
 export const isParenClose = (char: string): boolean => char === ')';
 
-const checkChar = {
+// Quotation characters
+export const isBacktick = (char: string): boolean => char === '`';
+export const isDoubleQuote = (char: string): boolean => char === '"';
+export const isSingleQuote = (char: string): boolean => char === "'";
+export const isQuote = (char: string): boolean =>
+  isBacktick(char) || isDoubleQuote(char) || isSingleQuote(char);
+
+export const checkChar = {
+  isBacktick,
   isBracesClose,
   isBracesOpen,
   isBracketClose,
   isBracketOpen,
+  isDoubleQuote,
   isLetter,
   isNumber,
   isOperator,
   isParenClose,
   isParenOpen,
+  isQuote,
+  isSingleQuote,
   isWhiteSpace,
 };
-
-export default checkChar;

@@ -1,4 +1,4 @@
-import checkChar from '../checkChar';
+import { checkChar } from '../checkChar';
 
 const chars = {
   letter: 'a',
@@ -36,5 +36,12 @@ describe('Character check', () => {
     expect(checkChar.isBracketClose(']')).toStrictEqual(true);
     expect(checkChar.isParenOpen('(')).toStrictEqual(true);
     expect(checkChar.isParenClose(')')).toStrictEqual(true);
+  });
+
+  it('correctly identifies quotation characters', () => {
+    expect(checkChar.isBacktick('`')).toStrictEqual(true);
+    expect(checkChar.isDoubleQuote('"')).toStrictEqual(true);
+    expect(checkChar.isSingleQuote("'")).toStrictEqual(true);
+    expect(checkChar.isSingleQuote(chars.letter)).toStrictEqual(false);
   });
 });
