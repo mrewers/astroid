@@ -2,10 +2,18 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import type { FunctionalComponent } from 'preact';
 
+import tokenize from '../utils/tokenize';
+
 import './App.css';
 
 const App: FunctionalComponent = () => {
   const [input, setInput] = useState('');
+
+  const handleInput = (e: Event): void => {
+    if (e.target instanceof HTMLTextAreaElement) {
+      setInput(e.target.value);
+    }
+  };
 
   return (
     <div>
@@ -16,11 +24,13 @@ const App: FunctionalComponent = () => {
         <div className="container panes">
           <div>
             <h2 className="pane-title">Input</h2>
-            <textarea value={input} onChange={(e): void => setInput(e.target.value)} />
+            <textarea value={input} onBlur={(e: Event): void => handleInput(e)} />
           </div>
           <div>
             <h2 className="pane-title">AST</h2>
-            <code>{input}</code>
+            <pre>
+              <code>{JSON.stringify(tokenize(input), null, 2)}</code>
+            </pre>
           </div>
         </div>
       </main>
