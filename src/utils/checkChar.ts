@@ -34,7 +34,14 @@ export const isPeriod = (char: string): boolean => char === '.';
 export const isQuestion = (char: string): boolean => char === '?';
 export const isSemicolon = (char: string): boolean => char === ';';
 
+// Special characters
+export const isDollar = (char: string): boolean => char === '$';
+export const isUnderscore = (char: string): boolean => char === '_';
+
 export const isNumeric = (char: string): boolean => isNumber(char) || isPeriod(char);
+export const isInitIdentifier = (char: string): boolean =>
+  isLetter(char) || isDollar(char) || isUnderscore(char);
+export const isIdentifier = (char: string): boolean => isInitIdentifier(char) || isNumber(char);
 
 export const checkChar = {
   isBacktick,

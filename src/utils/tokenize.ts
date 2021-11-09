@@ -1,6 +1,13 @@
 /* eslint-disable no-plusplus */
 import { isBoolean, isNull } from './keywords';
-import { isLetter, isNumeric, isOperator, isQuote, isWhiteSpace } from './checkChar';
+import {
+  isIdentifier,
+  isInitIdentifier,
+  isNumeric,
+  isOperator,
+  isQuote,
+  isWhiteSpace,
+} from './checkChar';
 
 interface INode {
   readonly type: string;
@@ -8,7 +15,7 @@ interface INode {
   readonly raw?: string;
 }
 
-const parseWord = (str: string): INode | null => {
+const parseWord = (str: string): INode => {
   let type = 'Identifier';
   let value: boolean | string | null = str;
 
@@ -55,20 +62,16 @@ const tokenize = (input: string): INode[] => {
 
     // Check for identifiers (i.e.) words
     // and word-like primitives.
-    if (isLetter(current)) {
+    if (isInitIdentifier(current)) {
       let word = current;
 
       // Need the extra check for input length here, otherwise
       // it starts to infinitely loop over instances of undefined
-      while (isLetter(input[++cursor]) && cursor < input.length) {
+      while (isIdentifier(input[++cursor]) && cursor < input.length) {
         word += input[cursor];
       }
 
-      const token = parseWord(word);
-
-      if (token) {
-        tokens.push(token);
-      }
+      tokens.push(parseWord(word));
 
       continue;
     }
