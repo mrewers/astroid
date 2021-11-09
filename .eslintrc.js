@@ -18,6 +18,15 @@ module.exports = {
         ],
         '@typescript-eslint/no-unsafe-call': 'warn',
         '@typescript-eslint/prefer-readonly-parameter-types': 'off',
+        'capitalized-comments': [
+          'error',
+          'always',
+          {
+            ignoreConsecutiveComments: true,
+            ignoreInlineComments: true,
+            ignorePattern: 'pragma|ignore|prettier-ignore',
+          }
+      ]
       },
     },
   ],
