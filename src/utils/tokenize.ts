@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 import { isBoolean, isNull } from './keywords';
-import { isLetter, isNumeric, isOperator, isWhiteSpace } from './checkChar';
+import { isLetter, isNumeric, isOperator, isQuote, isWhiteSpace } from './checkChar';
 
 interface INode {
   readonly type: string;
@@ -73,7 +73,7 @@ const tokenize = (input: string): INode[] => {
       continue;
     }
 
-    // Check for numbers and floats
+    // Check for numbers and floats.
     if (isNumeric(current)) {
       let num = current;
 
@@ -87,6 +87,33 @@ const tokenize = (input: string): INode[] => {
         raw: num,
       });
 
+      continue;
+    }
+
+    // Check for strings.
+    if (isQuote(current)) {
+      let string = '';
+      let previous = '';
+
+      while ((input[++cursor] !== current || previous === '\\') && cursor < input.length) {
+        const char = input[cursor];
+
+        string += char;
+        previous = char;
+      }
+
+      // We remove all escape characters since all items are
+      // stringified on output. If we omit this step we'll
+      // have lots of extra backslashes.
+      const unescaped = string.replace(/\\/gu, '');
+
+      tokens.push({
+        type: 'Literal',
+        value: unescaped,
+        raw: JSON.stringify(unescaped),
+      });
+
+      cursor += 1;
       continue;
     }
 

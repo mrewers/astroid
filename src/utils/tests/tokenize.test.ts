@@ -70,6 +70,25 @@ describe('The tokenization function', () => {
     expect(identifierTokens[1]).toStrictEqual(buildResponse('Identifier', 'xyz', 'xyz'));
   });
 
+  it('handles strings', () => {
+    /* eslint-disable quotes, no-useless-escape */
+    const stringTokens = tokenize('"double quotes" \'single quotes\' `backticks`');
+
+    // prettier-ignore
+    const escapeTokens = tokenize('"quotes with \\\"escape\\\""');
+
+    expect(stringTokens[0]).toStrictEqual(
+      buildResponse('Literal', 'double quotes', `\"double quotes\"`)
+    );
+    expect(stringTokens[1]).toStrictEqual(
+      buildResponse('Literal', 'single quotes', `\"single quotes\"`)
+    );
+    expect(stringTokens[2]).toStrictEqual(buildResponse('Literal', 'backticks', `\"backticks\"`));
+    expect(escapeTokens[0]).toStrictEqual(
+      buildResponse('Literal', `quotes with \"escape\"`, `"quotes with \\"escape\\\""`)
+    );
+  });
+
   it('handles operators', () => {
     const operators = ['+', '-', '*', '/', '%', '!', '&', '|', '>', '<'];
 
