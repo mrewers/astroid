@@ -46,46 +46,46 @@ describe('The tokenization function', () => {
   it('handles null', () => {
     const { tokens: nulls } = tokenize('null');
 
-    expect(nulls[0]).toStrictEqual(buildResponse('Literal', null, 'null'));
+    expect(nulls[0]).toStrictEqual(buildResponse('NullLiteral', null, 'null'));
   });
 
   it('handles booleans', () => {
     const { tokens: bools } = tokenize('true false');
 
-    expect(bools[0]).toStrictEqual(buildResponse('Literal', true, 'true'));
-    expect(bools[1]).toStrictEqual(buildResponse('Literal', false, 'false'));
+    expect(bools[0]).toStrictEqual(buildResponse('BooleanLiteral', true, 'true'));
+    expect(bools[1]).toStrictEqual(buildResponse('BooleanLiteral', false, 'false'));
   });
 
   it('handles numbers, both single and multiple digits', () => {
     const { tokens: numbers } = tokenize('2 189');
 
-    expect(numbers[0]).toStrictEqual(buildResponse('Literal', 2, '2'));
-    expect(numbers[1]).toStrictEqual(buildResponse('Literal', 189, '189'));
+    expect(numbers[0]).toStrictEqual(buildResponse('NumericLiteral', 2, '2'));
+    expect(numbers[1]).toStrictEqual(buildResponse('NumericLiteral', 189, '189'));
   });
 
   it('handles floats', () => {
     const { tokens: floats } = tokenize('12.34');
 
-    expect(floats[0]).toStrictEqual(buildResponse('Literal', 12.34, '12.34'));
+    expect(floats[0]).toStrictEqual(buildResponse('NumericLiteral', 12.34, '12.34'));
   });
 
   it('handles scientific notation', () => {
     const { tokens: exponents } = tokenize('1e2 2E3');
 
-    expect(exponents[0]).toStrictEqual(buildResponse('Literal', 100, '1e2'));
-    expect(exponents[1]).toStrictEqual(buildResponse('Literal', 2000, '2E3'));
+    expect(exponents[0]).toStrictEqual(buildResponse('NumericLiteral', 100, '1e2'));
+    expect(exponents[1]).toStrictEqual(buildResponse('NumericLiteral', 2000, '2E3'));
   });
 
   it('handles BigInts', () => {
     const { tokens: bigints } = tokenize('16n');
 
-    expect(bigints[0]).toStrictEqual(buildResponse('Literal', 16, '16n', '16'));
+    expect(bigints[0]).toStrictEqual(buildResponse('BigIntLiteral', 16, '16n', '16'));
   });
 
   it('reports number-based errors', () => {
     const { tokens: bigints } = tokenize('16n');
 
-    expect(bigints[0]).toStrictEqual(buildResponse('Literal', 16, '16n', '16'));
+    expect(bigints[0]).toStrictEqual(buildResponse('BigIntLiteral', 16, '16n', '16'));
   });
 
   it('handles identifiers', () => {
@@ -106,14 +106,14 @@ describe('The tokenization function', () => {
     const {tokens: escapes} = tokenize('"quotes with \\\"escape\\\""');
 
     expect(strings[0]).toStrictEqual(
-      buildResponse('Literal', 'double quotes', `\"double quotes\"`)
+      buildResponse('StringLiteral', 'double quotes', `\"double quotes\"`)
     );
     expect(strings[1]).toStrictEqual(
-      buildResponse('Literal', 'single quotes', `\"single quotes\"`)
+      buildResponse('StringLiteral', 'single quotes', `\"single quotes\"`)
     );
-    expect(strings[2]).toStrictEqual(buildResponse('Literal', 'backticks', `\"backticks\"`));
+    expect(strings[2]).toStrictEqual(buildResponse('StringLiteral', 'backticks', `\"backticks\"`));
     expect(escapes[0]).toStrictEqual(
-      buildResponse('Literal', `quotes with \"escape\"`, `"quotes with \\"escape\\\""`)
+      buildResponse('StringLiteral', `quotes with \"escape\"`, `"quotes with \\"escape\\\""`)
     );
   });
 

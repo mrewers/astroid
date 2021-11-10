@@ -15,12 +15,12 @@ const parseWord = (str: string): INode => {
   let value: boolean | string | null = str;
 
   if (isBoolean(str)) {
-    type = 'Literal';
+    type = 'BooleanLiteral';
     value = str === 'true';
   }
 
   if (isNull(str)) {
-    type = 'Literal';
+    type = 'NullLiteral';
     value = null;
   }
 
@@ -106,7 +106,7 @@ const tokenize = (input: string): IParsed => {
       const unescaped = string.replace(/\\/gu, '');
 
       tokens.push({
-        type: 'Literal',
+        type: 'StringLiteral',
         value: unescaped,
         raw: JSON.stringify(unescaped),
       });

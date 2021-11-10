@@ -36,14 +36,14 @@ const constructToken = (num: string): INode => {
 
   if (num.includes('n')) {
     token = {
-      type: 'Literal',
+      type: 'BigIntLiteral',
       value: Number(num.slice(0, -1)),
       raw: num,
       bigint: num.slice(0, -1),
     };
   } else {
     token = {
-      type: 'Literal',
+      type: 'NumericLiteral',
       value: Number(num),
       raw: num,
     };
