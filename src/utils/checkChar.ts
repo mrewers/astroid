@@ -1,7 +1,7 @@
 const LETTER = /[a-zA-Z]/u;
 const WHITESPACE = /\s+/u;
 const NUMBER = /^[0-9]+$/u;
-const OPERATORS = ['+', '-', '*', '/', '%', '!', '&', '|', '>', '<'];
+const OPERATORS = ['+', '-', '*', '/', '%', '!', '&', '|', '>', '<', '^'];
 
 // Basic character types
 export const isLetter = (char: string): boolean => LETTER.test(char);
@@ -38,6 +38,8 @@ export const isSemicolon = (char: string): boolean => char === ';';
 export const isDollar = (char: string): boolean => char === '$';
 export const isUnderscore = (char: string): boolean => char === '_';
 
+// Combined checks
+export const isDelimiter = (char: string): boolean => isWhiteSpace(char) || isOperator(char);
 export const isNumeric = (char: string): boolean => isNumber(char) || isPeriod(char);
 export const isInitIdentifier = (char: string): boolean =>
   isLetter(char) || isDollar(char) || isUnderscore(char);

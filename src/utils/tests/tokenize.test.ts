@@ -4,12 +4,14 @@ interface IRes {
   readonly type: string;
   readonly value?: boolean | number | string | null;
   raw?: string;
+  bigint?: string;
 }
 
 const buildResponse = (
   type: string,
   value: boolean | number | string | null,
-  raw?: string
+  raw?: string,
+  bigint?: string
 ): IRes => {
   const res = {
     type,
@@ -20,71 +22,97 @@ const buildResponse = (
     res.raw = raw;
   }
 
+  if (typeof bigint === 'string') {
+    res.bigint = bigint;
+  }
+
   return res;
 };
 
 describe('The tokenization function', () => {
   it('returns an empty array if no input is provided', () => {
-    const emptyString = tokenize('');
+    const emptyString = tokenize('').tokens;
 
     expect(Array.isArray(emptyString)).toStrictEqual(true);
     expect(emptyString).toHaveLength(0);
   });
 
   it('ignores whitespace', () => {
-    const whitespaceTokens = tokenize('                  ');
+    const { tokens: whitespaces } = tokenize('                  ');
 
-    expect(whitespaceTokens).toHaveLength(0);
+    expect(whitespaces).toHaveLength(0);
   });
 
   it('handles null', () => {
-    const nullTokens = tokenize('null');
+    const { tokens: nulls } = tokenize('null');
 
-    expect(nullTokens[0]).toStrictEqual(buildResponse('Literal', null, 'null'));
+    expect(nulls[0]).toStrictEqual(buildResponse('Literal', null, 'null'));
   });
 
   it('handles booleans', () => {
-    const boolTokens = tokenize('true false');
+    const { tokens: bools } = tokenize('true false');
 
-    expect(boolTokens[0]).toStrictEqual(buildResponse('Literal', true, 'true'));
-    expect(boolTokens[1]).toStrictEqual(buildResponse('Literal', false, 'false'));
+    expect(bools[0]).toStrictEqual(buildResponse('Literal', true, 'true'));
+    expect(bools[1]).toStrictEqual(buildResponse('Literal', false, 'false'));
   });
 
   it('handles numbers, both single and multiple digits', () => {
-    const numbersTokens = tokenize('2 189');
+    const { tokens: numbers } = tokenize('2 189');
 
-    expect(numbersTokens[0]).toStrictEqual(buildResponse('Literal', 2, '2'));
-    expect(numbersTokens[1]).toStrictEqual(buildResponse('Literal', 189, '189'));
+    expect(numbers[0]).toStrictEqual(buildResponse('Literal', 2, '2'));
+    expect(numbers[1]).toStrictEqual(buildResponse('Literal', 189, '189'));
   });
 
   it('handles floats', () => {
-    const floatTokens = tokenize('12.34');
+    const { tokens: floats } = tokenize('12.34');
 
-    expect(floatTokens[0]).toStrictEqual(buildResponse('Literal', 12.34, '12.34'));
+    expect(floats[0]).toStrictEqual(buildResponse('Literal', 12.34, '12.34'));
+  });
+
+  it('handles scientific notation', () => {
+    const { tokens: exponents } = tokenize('1e2 2E3');
+
+    expect(exponents[0]).toStrictEqual(buildResponse('Literal', 100, '1e2'));
+    expect(exponents[1]).toStrictEqual(buildResponse('Literal', 2000, '2E3'));
+  });
+
+  it('handles BigInts', () => {
+    const { tokens: bigints } = tokenize('16n');
+
+    expect(bigints[0]).toStrictEqual(buildResponse('Literal', 16, '16n', '16'));
+  });
+
+  it('reports number-based errors', () => {
+    const { tokens: bigints } = tokenize('16n');
+
+    expect(bigints[0]).toStrictEqual(buildResponse('Literal', 16, '16n', '16'));
   });
 
   it('handles identifiers', () => {
-    const identifierTokens = tokenize('a xyz');
+    const { tokens: identifiers } = tokenize('a xyz _bar $dollar d1g1t');
 
-    expect(identifierTokens[0]).toStrictEqual(buildResponse('Identifier', 'a', 'a'));
-    expect(identifierTokens[1]).toStrictEqual(buildResponse('Identifier', 'xyz', 'xyz'));
+    expect(identifiers[0]).toStrictEqual(buildResponse('Identifier', 'a', 'a'));
+    expect(identifiers[1]).toStrictEqual(buildResponse('Identifier', 'xyz', 'xyz'));
+    expect(identifiers[2]).toStrictEqual(buildResponse('Identifier', '_bar', '_bar'));
+    expect(identifiers[3]).toStrictEqual(buildResponse('Identifier', '$dollar', '$dollar'));
+    expect(identifiers[4]).toStrictEqual(buildResponse('Identifier', 'd1g1t', 'd1g1t'));
   });
 
   it('handles strings', () => {
     /* eslint-disable quotes, no-useless-escape */
-    const stringTokens = tokenize('"double quotes" \'single quotes\' `backticks`');
+    const { tokens: strings } = tokenize('"double quotes" \'single quotes\' `backticks`');
 
     // prettier-ignore
-    const escapeTokens = tokenize('"quotes with \\\"escape\\\""');
+    const {tokens: escapes} = tokenize('"quotes with \\\"escape\\\""');
 
-    expect(stringTokens[0]).toStrictEqual(
+    expect(strings[0]).toStrictEqual(
       buildResponse('Literal', 'double quotes', `\"double quotes\"`)
     );
-    expect(stringTokens[1]).toStrictEqual(
+    expect(strings[1]).toStrictEqual(
       buildResponse('Literal', 'single quotes', `\"single quotes\"`)
     );
-    expect(stringTokens[2]).toStrictEqual(buildResponse('Literal', 'backticks', `\"backticks\"`));
-    expect(escapeTokens[0]).toStrictEqual(
+    expect(strings[2]).toStrictEqual(buildResponse('Literal', 'backticks', `\"backticks\"`));
+    expect(escapes[0]).toStrictEqual(
       buildResponse('Literal', `quotes with \"escape\"`, `"quotes with \\"escape\\\""`)
     );
   });
@@ -93,7 +121,7 @@ describe('The tokenization function', () => {
     const operators = ['+', '-', '*', '/', '%', '!', '&', '|', '>', '<'];
 
     operators.forEach((opt) => {
-      const tokens = tokenize(opt);
+      const { tokens } = tokenize(opt);
 
       expect(tokens[0]).toStrictEqual(buildResponse('Operator', opt));
     });

@@ -1,18 +1,13 @@
 /* eslint-disable no-plusplus */
+import findNumerics from './numerics';
 import { isBoolean, isNull } from './keywords';
-import {
-  isIdentifier,
-  isInitIdentifier,
-  isNumeric,
-  isOperator,
-  isQuote,
-  isWhiteSpace,
-} from './checkChar';
+import { isIdentifier, isInitIdentifier, isOperator, isQuote, isWhiteSpace } from './checkChar';
 
 interface INode {
   readonly type: string;
   readonly value?: boolean | number | string | null;
   readonly raw?: string;
+  readonly bigint?: string;
 }
 
 const parseWord = (str: string): INode => {
@@ -36,7 +31,13 @@ const parseWord = (str: string): INode => {
   };
 };
 
-const tokenize = (input: string): INode[] => {
+interface IParsed {
+  readonly error: string;
+  readonly tokens: INode[];
+}
+
+const tokenize = (input: string): IParsed => {
+  let error = '';
   const tokens = [];
   let cursor = 0;
 
@@ -76,19 +77,13 @@ const tokenize = (input: string): INode[] => {
       continue;
     }
 
-    // Check for numbers and floats.
-    if (isNumeric(current)) {
-      let num = current;
+    // Check for numbers, floats, and bigints.
+    const numerics = findNumerics(cursor, current, input);
 
-      while (isNumeric(input[++cursor])) {
-        num += input[cursor];
-      }
-
-      tokens.push({
-        type: 'Literal',
-        value: num.includes('.') ? parseFloat(num) : parseInt(num, 10),
-        raw: num,
-      });
+    if (numerics) {
+      cursor = numerics.finalPosition;
+      error = numerics.err;
+      tokens.push(numerics.token);
 
       continue;
     }
@@ -120,11 +115,13 @@ const tokenize = (input: string): INode[] => {
       continue;
     }
 
-    // Throw new Error(`Error: ${current} is an invalid character.`);
     cursor += 1;
   }
 
-  return tokens;
+  return {
+    error,
+    tokens,
+  };
 };
 
 export type { INode };
