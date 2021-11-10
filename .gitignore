@@ -1,3 +1,6 @@
+# Build Artifacts
+coverage/
+
 # Dependencies
 node_modules/
 
