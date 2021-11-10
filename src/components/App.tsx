@@ -6,6 +6,16 @@ import tokenize from '../utils/tokenize';
 
 import './App.css';
 
+const populateAST = (input: string): h.JSX.Element => {
+  const parsed = tokenize(input);
+
+  if (parsed.error !== '') {
+    return <p>{`Error: ${parsed.error}`}</p>;
+  }
+
+  return <code>{JSON.stringify(parsed.tokens, null, 2)}</code>;
+};
+
 const App: FunctionalComponent = () => {
   const [input, setInput] = useState('');
 
@@ -28,9 +38,7 @@ const App: FunctionalComponent = () => {
           </div>
           <div>
             <h2 className="pane-title">AST</h2>
-            <pre>
-              <code>{JSON.stringify(tokenize(input), null, 2)}</code>
-            </pre>
+            <pre>{populateAST(input)}</pre>
           </div>
         </div>
       </main>
