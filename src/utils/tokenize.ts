@@ -1,13 +1,20 @@
 /* eslint-disable no-plusplus */
 import findNumerics from './numerics';
+import findStrings from './strings';
 import { isBoolean, isNull } from './keywords';
-import { isIdentifier, isInitIdentifier, isOperator, isQuote, isWhiteSpace } from './checkChar';
+import { isIdentifier, isInitIdentifier, isOperator, isWhiteSpace } from './checkChar';
 
 interface INode {
   readonly type: string;
   readonly value?: boolean | number | string | null;
   readonly raw?: string;
   readonly bigint?: string;
+}
+
+interface ISubLoop {
+  readonly err: string;
+  readonly finalPosition: number;
+  readonly token: INode;
 }
 
 const parseWord = (str: string): INode => {
@@ -89,29 +96,13 @@ const tokenize = (input: string): IParsed => {
     }
 
     // Check for strings.
-    if (isQuote(current)) {
-      let string = '';
-      let previous = '';
+    const strings = findStrings(cursor, current, input);
 
-      while ((input[++cursor] !== current || previous === '\\') && cursor < input.length) {
-        const char = input[cursor];
+    if (strings) {
+      cursor = strings.finalPosition;
+      error = strings.err;
+      tokens.push(strings.token);
 
-        string += char;
-        previous = char;
-      }
-
-      // We remove all escape characters since all items are
-      // stringified on output. If we omit this step we'll
-      // have lots of extra backslashes.
-      const unescaped = string.replace(/\\/gu, '');
-
-      tokens.push({
-        type: 'StringLiteral',
-        value: unescaped,
-        raw: JSON.stringify(unescaped),
-      });
-
-      cursor += 1;
       continue;
     }
 
@@ -124,6 +115,6 @@ const tokenize = (input: string): IParsed => {
   };
 };
 
-export type { INode };
+export type { INode, ISubLoop };
 
 export default tokenize;

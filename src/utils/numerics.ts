@@ -1,12 +1,6 @@
 /* eslint-disable no-plusplus */
 import { isDelimiter, isInitIdentifier, isNumeric } from './checkChar';
-import type { INode } from './tokenize';
-
-interface ISubLoop {
-  readonly err: string;
-  readonly finalPosition: number;
-  readonly token: INode;
-}
+import type { INode, ISubLoop } from './tokenize';
 
 const ALLOWED_LETTERS = /[e|E|n]/gu;
 

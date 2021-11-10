@@ -89,16 +89,23 @@ describe('The findNumerics error states', () => {
       expect(two.err).toStrictEqual(errors.exponents('E'));
     }
   });
+
+  it('returns null is invalid value is provided', () => {
+    const numerics = findNumerics(0, 'h', 'hello');
+
+    expect(numerics).toBeNull();
+  });
 });
 
 describe('The findNumerics function advances the cursor', () => {
   it('sets the final position to the sum of the initial index and the length of the input', () => {
-    const numeric = findNumerics(0, '1', '123456789');
+    const testValue = '123456789';
+    const numeric = findNumerics(0, '1', testValue);
 
     expect(numeric).not.toBeNull();
 
     if (numeric !== null) {
-      expect(numeric.finalPosition).toStrictEqual(9);
+      expect(numeric.finalPosition).toStrictEqual(testValue.length);
     }
   });
 });
