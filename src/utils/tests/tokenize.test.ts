@@ -111,7 +111,9 @@ describe('The tokenization function', () => {
     expect(strings[1]).toStrictEqual(
       buildResponse('StringLiteral', 'single quotes', `\"single quotes\"`)
     );
-    expect(strings[2]).toStrictEqual(buildResponse('StringLiteral', 'backticks', `\"backticks\"`));
+    expect(strings[2]).toStrictEqual(
+      buildResponse('TemplateLiteral', 'backticks', `\"backticks\"`)
+    );
     expect(escapes[0]).toStrictEqual(
       buildResponse('StringLiteral', `quotes with \"escape\"`, `"quotes with \\"escape\\\""`)
     );

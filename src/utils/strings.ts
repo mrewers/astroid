@@ -3,13 +3,20 @@ import { isQuote } from './checkChar';
 import type { ISubLoop } from './tokenize';
 
 /**
+ * Checks whether the given character is a backtick.
+ * If not it assumes the it is a single or double quote.
+ * @param mark - A quotation type character.
+ */
+const stringType = (mark: string): string => (mark === '`' ? 'template' : 'string');
+
+/**
  * Ensure that the provided string ends in the expected quotation type.
  * @param closing - The final element of a string.
  * @param expected - The expected quotation character.
  */
 const checkForUnterminatedString = (closing: string, expected: string): string => {
   if (closing !== expected) {
-    return `Unterminated string. Expected: ${expected}`;
+    return `Unterminated ${stringType(expected)}. Expected: ${expected}`;
   }
 
   return '';
@@ -48,7 +55,7 @@ const findStrings = (cursor: number, current: string, input: string): ISubLoop |
     const unescaped = string.replace(/\\/gu, '');
 
     const token = {
-      type: 'StringLiteral',
+      type: stringType(current) === 'template' ? 'TemplateLiteral' : 'StringLiteral',
       value: unescaped,
       raw: JSON.stringify(unescaped),
     };

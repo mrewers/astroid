@@ -1,7 +1,7 @@
 import findStrings from '../strings';
 
 const errors = {
-  unterminated: (char: string): string => `Unterminated string. Expected: ${char}`,
+  unterminated: (char: string, type: string): string => `Unterminated ${type}. Expected: ${char}`,
 };
 
 describe('The findStrings error states', () => {
@@ -11,7 +11,15 @@ describe('The findStrings error states', () => {
     expect(string).not.toBeNull();
 
     if (string !== null) {
-      expect(string.err).toStrictEqual(errors.unterminated('"'));
+      expect(string.err).toStrictEqual(errors.unterminated('"', 'string'));
+    }
+
+    const template = findStrings(0, '`', '`hello');
+
+    expect(template).not.toBeNull();
+
+    if (template !== null) {
+      expect(template.err).toStrictEqual(errors.unterminated('`', 'template'));
     }
   });
 
