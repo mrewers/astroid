@@ -1,12 +1,13 @@
 const LETTER = /[a-zA-Z]/u;
 const WHITESPACE = /\s+/u;
 const NUMBER = /^[0-9]+$/u;
-const OPERATORS = ['+', '-', '*', '/', '%', '!', '&', '|', '>', '<', '^'];
+
+export const SINGULAR_OPERATORS = ['+', '-', '*', '/', '%', '!', '&', '?', '|', '>', '<', '^', '='];
 
 // Basic character types
 export const isLetter = (char: string): boolean => LETTER.test(char);
 export const isNumber = (char: string): boolean => NUMBER.test(char);
-export const isOperator = (char: string): boolean => OPERATORS.includes(char);
+export const isOperator = (char: string): boolean => SINGULAR_OPERATORS.includes(char);
 export const isWhiteSpace = (char: string): boolean => WHITESPACE.test(char);
 
 // Parenthetical characters

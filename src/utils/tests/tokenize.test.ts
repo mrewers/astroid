@@ -1,4 +1,5 @@
 import tokenize from '../tokenize';
+import { OPERATORS } from '../operators';
 
 interface IRes {
   readonly type: string;
@@ -120,9 +121,7 @@ describe('The tokenization function', () => {
   });
 
   it('handles operators', () => {
-    const operators = ['+', '-', '*', '/', '%', '!', '&', '|', '>', '<'];
-
-    operators.forEach((opt) => {
+    OPERATORS.forEach((opt) => {
       const { tokens } = tokenize(opt);
 
       expect(tokens[0]).toStrictEqual(buildResponse('Operator', opt));

@@ -1,8 +1,9 @@
 /* eslint-disable no-plusplus */
 import findNumerics from './numerics';
+import findOperators from './operators';
 import findStrings from './strings';
 import { isBoolean, isNull } from './keywords';
-import { isIdentifier, isInitIdentifier, isOperator, isWhiteSpace } from './checkChar';
+import { isIdentifier, isInitIdentifier, isWhiteSpace } from './checkChar';
 
 interface INode {
   readonly type: string;
@@ -48,6 +49,18 @@ const tokenize = (input: string): IParsed => {
   const tokens = [];
   let cursor = 0;
 
+  // Update the list of tokens, the position of the cursor, and the
+  // error state based on the response from a sub-loop operation.
+  const updateState = (found: ISubLoop): void => {
+    cursor = found.finalPosition;
+
+    if (found.err) {
+      error = found.err;
+    }
+
+    tokens.push(found.token);
+  };
+
   while (cursor < input.length) {
     const current = input[cursor];
 
@@ -58,13 +71,11 @@ const tokenize = (input: string): IParsed => {
     }
 
     // Check for operators.
-    if (isOperator(current)) {
-      tokens.push({
-        type: 'Operator',
-        value: current,
-      });
+    const operators = findOperators(cursor, current, input);
 
-      cursor += 1;
+    if (operators) {
+      updateState(operators);
+
       continue;
     }
 
@@ -88,9 +99,7 @@ const tokenize = (input: string): IParsed => {
     const numerics = findNumerics(cursor, current, input);
 
     if (numerics) {
-      cursor = numerics.finalPosition;
-      error = numerics.err;
-      tokens.push(numerics.token);
+      updateState(numerics);
 
       continue;
     }
@@ -99,9 +108,7 @@ const tokenize = (input: string): IParsed => {
     const strings = findStrings(cursor, current, input);
 
     if (strings) {
-      cursor = strings.finalPosition;
-      error = strings.err;
-      tokens.push(strings.token);
+      updateState(strings);
 
       continue;
     }

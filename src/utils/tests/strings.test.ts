@@ -23,7 +23,7 @@ describe('The findStrings error states', () => {
     }
   });
 
-  it('returns null is invalid value is provided', () => {
+  it('returns null if a non-string value is provided', () => {
     const string = findStrings(0, '2', '200');
 
     expect(string).toBeNull();
@@ -31,7 +31,7 @@ describe('The findStrings error states', () => {
 });
 
 describe('The findStrings function advances the cursor', () => {
-  it('sets the final position to the sum of the initial index and the length of the input', () => {
+  it('sets the final position to the sum of the initial index and the length of the found string', () => {
     const testValue = '"Hello World"';
     const strings = findStrings(0, '"', testValue);
 
