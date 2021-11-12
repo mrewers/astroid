@@ -2,9 +2,9 @@
 import findComments from './comments';
 import findNumerics from './numerics';
 import findOperators from './operators';
+import findIdentifiers from './identifiers';
 import findStrings from './strings';
-import { isBoolean, isNull } from './keywords';
-import { isIdentifier, isInitIdentifier, isWhiteSpace } from './checkChar';
+import { isWhiteSpace } from './checkChar';
 
 interface INode {
   readonly type: string;
@@ -19,27 +19,6 @@ interface ISubLoop {
   readonly token: INode;
 }
 
-const parseWord = (str: string): INode => {
-  let type = 'Identifier';
-  let value: boolean | string | null = str;
-
-  if (isBoolean(str)) {
-    type = 'BooleanLiteral';
-    value = str === 'true';
-  }
-
-  if (isNull(str)) {
-    type = 'NullLiteral';
-    value = null;
-  }
-
-  return {
-    type,
-    value,
-    raw: str,
-  };
-};
-
 interface IParsed {
   readonly error: string;
   readonly tokens: INode[];
@@ -47,7 +26,7 @@ interface IParsed {
 
 const tokenize = (input: string): IParsed => {
   let error = '';
-  const tokens = [];
+  const tokens: INode[] = [];
   let cursor = 0;
 
   // Update the list of tokens, the position of the cursor, and the
@@ -89,18 +68,12 @@ const tokenize = (input: string): IParsed => {
       continue;
     }
 
-    // Check for identifiers (i.e.) words
-    // and word-like primitives.
-    if (isInitIdentifier(current)) {
-      let word = current;
+    // Check for identifiers and reserved keywords.
+    // Also finds word-like primitives (such as null or true).
+    const identifiers = findIdentifiers(cursor, current, input);
 
-      // Need the extra check for input length here, otherwise
-      // it starts to infinitely loop over instances of undefined
-      while (isIdentifier(input[++cursor]) && cursor < input.length) {
-        word += input[cursor];
-      }
-
-      tokens.push(parseWord(word));
+    if (identifiers) {
+      updateState(identifiers);
 
       continue;
     }
