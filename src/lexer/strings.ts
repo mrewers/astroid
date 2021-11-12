@@ -1,3 +1,4 @@
+import generateToken from './utils/tokens';
 import { isQuote } from './checkChar';
 import type { ISubLoop } from './tokenize';
 
@@ -7,6 +8,21 @@ import type { ISubLoop } from './tokenize';
  * @param mark - A quotation type character.
  */
 const stringType = (mark: string): string => (mark === '`' ? 'template' : 'string');
+
+/**
+ * Returns a string's token type based on the quotation mark type that wraps it.
+ * @param mark - A quotation type character.
+ */
+const tokenType = (mark: string): string => {
+  switch (stringType(mark)) {
+    case 'template':
+      return 'TemplateLiteral';
+    case 'string':
+      return 'StringLiteral';
+    default:
+      return '';
+  }
+};
 
 /**
  * Ensure that the provided string ends in the expected quotation type.
@@ -20,6 +36,20 @@ const checkForUnterminatedString = (closing: string, expected: string): string =
 
   return '';
 };
+
+/**
+ * We remove all escape characters since all items are
+ * stringified on output. If we omit this step the
+ * resulting text will have lots of extra backslashes.
+ * @param str - Any string.
+ */
+const unescaped = (str: string): string => str.replace(/\\/gu, '');
+
+/**
+ * Removes the first and last character of a string.
+ * @param str - Any string.
+ */
+const trimQuotes = (str: string): string => str.substring(1, str.length - 1);
 
 /**
  * Checks the input for strings wrapped in "", '', and ``.
@@ -48,25 +78,19 @@ const findStrings = (cursor: number, current: string, input: string): ISubLoop |
       previous = char; // Keep track of the previous character to help account for escape sequences
     }
 
-    // We remove all escape characters since all items are
-    // stringified on output. If we omit this step the
-    // resulting text will have lots of extra backslashes.
-    const unescaped = string.replace(/\\/gu, '');
-
-    const token = {
-      type: stringType(current) === 'template' ? 'TemplateLiteral' : 'StringLiteral',
-      value: unescaped,
-      raw: JSON.stringify(unescaped),
-    };
-
     err = checkForUnterminatedString(input[finalPosition], current);
 
     finalPosition += 1; // Advance cursor by one character to omit closing quotation mark.
 
+    // The string value wrapped in the appropriate quote character.
+    const full = `${current}${string}${current}`;
+
+    const removeQuotes = (str: string): string => trimQuotes(unescaped(str));
+
     return {
       err,
       finalPosition,
-      token,
+      token: generateToken(cursor, tokenType(current), full, removeQuotes),
     };
   }
 

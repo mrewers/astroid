@@ -1,3 +1,4 @@
+import generateToken from './utils/tokens';
 import { isAsterisk, isSlash } from './checkChar';
 import type { ISubLoop } from './tokenize';
 
@@ -26,48 +27,59 @@ const findComments = (cursor: number, current: string, input: string): ISubLoop 
   let err = '';
   let comment = '';
 
-  // Identify block comments.
-  if (isSlash(current) && isAsterisk(input[cursor + 1])) {
+  /**
+   * Iterates over each character in the input string until it encounters the end of the comment.
+   * @param condition - Checks the current character against the closing condition.
+   */
+  const iterate = (condition: (char: string) => boolean): void => {
     while (finalPosition < input.length) {
       const char = input[finalPosition];
 
       // Identify closing delimiter.
-      if (char === '/' && comment.endsWith('*')) {
+      if (condition(char)) {
         comment += char;
         break;
       }
 
       comment += char;
-      finalPosition++;
+      finalPosition += 1;
     }
+  };
 
+  // Identify block comments.
+  if (isSlash(current) && isAsterisk(input[cursor + 1])) {
+    // Define the closing delimiter.
+    const condition = (char: string): boolean => char === '/' && comment.endsWith('*');
+
+    iterate(condition);
+
+    // Block comments must end in */
     err = checkForUnterminatedComment(comment);
+
+    // Trim the comment delimiters.
+    const blockCommentTransform = (str: string): string => str.substring(2, str.length - 2);
 
     return {
       err,
       finalPosition: finalPosition + 1, // Advance cursor past closing comment delimiter.
-      token: {
-        type: 'BlockComment',
-        value: comment.substring(2, comment.length - 2), // Trim the comment delimiters.
-      },
+      token: generateToken(cursor, 'BlockComment', comment, blockCommentTransform),
     };
   }
 
   // Identify line comments.
   if (isSlash(current) && isSlash(input[cursor + 1])) {
-    while (input[++finalPosition] !== '\n' && finalPosition < input.length) {
-      const char = input[finalPosition];
+    // Define the closing delimiter.
+    const condition = (char: string): boolean => char === '\n';
 
-      comment += char;
-    }
+    iterate(condition);
+
+    // Trim the comment delimiters.
+    const lineCommentTransform = (str: string): string => str.substring(2);
 
     return {
       err,
       finalPosition,
-      token: {
-        type: 'LineComment',
-        value: comment.substring(1), // Trim the comment delimiters.
-      },
+      token: generateToken(cursor, 'LineComment', comment, lineCommentTransform),
     };
   }
 

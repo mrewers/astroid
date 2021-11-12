@@ -6,9 +6,11 @@ import findOperators from './operators';
 import findStrings from './strings';
 import { isWhiteSpace } from './checkChar';
 
-interface INode {
+interface IToken {
   readonly type: string;
   readonly value?: boolean | number | string | null;
+  readonly start?: number;
+  readonly end?: number;
   readonly raw?: string;
   readonly bigint?: string;
 }
@@ -16,17 +18,17 @@ interface INode {
 interface ISubLoop {
   readonly err: string;
   readonly finalPosition: number;
-  readonly token: INode;
+  readonly token: IToken;
 }
 
 interface IParsed {
   readonly error: string;
-  readonly tokens: INode[];
+  readonly tokens: IToken[];
 }
 
 const tokenize = (input: string): IParsed => {
   let error = '';
-  const tokens: INode[] = [];
+  const tokens: IToken[] = [];
   let cursor = 0;
 
   // Update the list of tokens, the position of the cursor, and the
@@ -114,6 +116,6 @@ const tokenize = (input: string): IParsed => {
   };
 };
 
-export type { INode, ISubLoop };
+export type { IToken, ISubLoop };
 
 export default tokenize;

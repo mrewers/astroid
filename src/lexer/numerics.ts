@@ -1,5 +1,6 @@
+import generateToken from './utils/tokens';
 import { isDelimiter, isInitIdentifier, isNumeric } from './checkChar';
-import type { INode, ISubLoop } from './tokenize';
+import type { IToken, ISubLoop } from './tokenize';
 
 const ALLOWED_LETTERS = /[e|E|n]/gu;
 
@@ -23,26 +24,19 @@ const checkForValidExponent = (num: string): string => {
 /**
  * Generates a AST node based off of the numeric string.
  * @param num - A string representation of a numeric value.
+ * @param current - The character at the cursor's position.
  */
-const constructToken = (num: string): INode => {
-  let token;
+const constructToken = (num: string, cursor: number): IToken => {
+  const isBigInt = num.includes('n');
 
-  if (num.includes('n')) {
-    token = {
-      type: 'BigIntLiteral',
-      value: Number(num.slice(0, -1)),
-      raw: num,
-      bigint: num.slice(0, -1),
-    };
-  } else {
-    token = {
-      type: 'NumericLiteral',
-      value: Number(num),
-      raw: num,
-    };
+  if (isBigInt) {
+    const bigIntVal = (str: string): string => str.slice(0, -1);
+    const transform = (str: string): number => Number(bigIntVal(str));
+
+    return generateToken(cursor, 'BigIntLiteral', num, transform, { bigint: bigIntVal(num) });
   }
 
-  return token;
+  return generateToken(cursor, 'NumericLiteral', num, Number);
 };
 
 /**
@@ -100,7 +94,7 @@ const findNumerics = (cursor: number, current: string, input: string): ISubLoop 
     return {
       err,
       finalPosition,
-      token: constructToken(num),
+      token: constructToken(num, cursor),
     };
   }
 

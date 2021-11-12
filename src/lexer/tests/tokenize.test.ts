@@ -4,6 +4,8 @@ import { OPERATORS } from '../operators';
 interface IRes {
   readonly type: string;
   readonly value?: boolean | number | string | null;
+  readonly start: number;
+  readonly end: number;
   raw?: string;
   bigint?: string;
 }
@@ -11,12 +13,15 @@ interface IRes {
 const buildResponse = (
   type: string,
   value: boolean | number | string | null,
+  pos: number[],
   raw?: string,
   bigint?: string
 ): IRes => {
   const res = {
     type,
     value,
+    start: pos[0],
+    end: pos[1],
   } as IRes;
 
   if (typeof raw === 'string') {
@@ -50,66 +55,68 @@ describe('The tokenization function', () => {
 
     expect(block).toHaveLength(1);
 
-    expect(block[0]).toStrictEqual(buildResponse('BlockComment', ' Block comment '));
+    expect(block[0]).toStrictEqual(buildResponse('BlockComment', ' Block comment ', [0, 19]));
 
     expect(line).toHaveLength(1);
 
-    expect(line[0]).toStrictEqual(buildResponse('LineComment', ' Line comment'));
+    expect(line[0]).toStrictEqual(buildResponse('LineComment', ' Line comment', [0, 15]));
   });
 
   it('handles null', () => {
     const { tokens: nulls } = tokenize('null');
 
-    expect(nulls[0]).toStrictEqual(buildResponse('NullLiteral', null, 'null'));
+    expect(nulls[0]).toStrictEqual(buildResponse('NullLiteral', null, [0, 4], 'null'));
   });
 
   it('handles booleans', () => {
     const { tokens: bools } = tokenize('true false');
 
-    expect(bools[0]).toStrictEqual(buildResponse('BooleanLiteral', true, 'true'));
-    expect(bools[1]).toStrictEqual(buildResponse('BooleanLiteral', false, 'false'));
+    expect(bools[0]).toStrictEqual(buildResponse('BooleanLiteral', true, [0, 4], 'true'));
+    expect(bools[1]).toStrictEqual(buildResponse('BooleanLiteral', false, [5, 10], 'false'));
   });
 
   it('handles numbers, both single and multiple digits', () => {
     const { tokens: numbers } = tokenize('2 189');
 
-    expect(numbers[0]).toStrictEqual(buildResponse('NumericLiteral', 2, '2'));
-    expect(numbers[1]).toStrictEqual(buildResponse('NumericLiteral', 189, '189'));
+    expect(numbers[0]).toStrictEqual(buildResponse('NumericLiteral', 2, [0, 1], '2'));
+    expect(numbers[1]).toStrictEqual(buildResponse('NumericLiteral', 189, [2, 5], '189'));
   });
 
   it('handles floats', () => {
     const { tokens: floats } = tokenize('12.34');
 
-    expect(floats[0]).toStrictEqual(buildResponse('NumericLiteral', 12.34, '12.34'));
+    expect(floats[0]).toStrictEqual(buildResponse('NumericLiteral', 12.34, [0, 5], '12.34'));
   });
 
   it('handles scientific notation', () => {
     const { tokens: exponents } = tokenize('1e2 2E3');
 
-    expect(exponents[0]).toStrictEqual(buildResponse('NumericLiteral', 100, '1e2'));
-    expect(exponents[1]).toStrictEqual(buildResponse('NumericLiteral', 2000, '2E3'));
+    expect(exponents[0]).toStrictEqual(buildResponse('NumericLiteral', 100, [0, 3], '1e2'));
+    expect(exponents[1]).toStrictEqual(buildResponse('NumericLiteral', 2000, [4, 7], '2E3'));
   });
 
   it('handles BigInts', () => {
     const { tokens: bigints } = tokenize('16n');
 
-    expect(bigints[0]).toStrictEqual(buildResponse('BigIntLiteral', 16, '16n', '16'));
+    expect(bigints[0]).toStrictEqual(buildResponse('BigIntLiteral', 16, [0, 3], '16n', '16'));
   });
 
   it('reports number-based errors', () => {
     const { tokens: bigints } = tokenize('16n');
 
-    expect(bigints[0]).toStrictEqual(buildResponse('BigIntLiteral', 16, '16n', '16'));
+    expect(bigints[0]).toStrictEqual(buildResponse('BigIntLiteral', 16, [0, 3], '16n', '16'));
   });
 
   it('handles identifiers', () => {
     const { tokens: identifiers } = tokenize('a xyz _bar $dollar d1g1t');
 
-    expect(identifiers[0]).toStrictEqual(buildResponse('Identifier', 'a', 'a'));
-    expect(identifiers[1]).toStrictEqual(buildResponse('Identifier', 'xyz', 'xyz'));
-    expect(identifiers[2]).toStrictEqual(buildResponse('Identifier', '_bar', '_bar'));
-    expect(identifiers[3]).toStrictEqual(buildResponse('Identifier', '$dollar', '$dollar'));
-    expect(identifiers[4]).toStrictEqual(buildResponse('Identifier', 'd1g1t', 'd1g1t'));
+    expect(identifiers[0]).toStrictEqual(buildResponse('Identifier', 'a', [0, 1], 'a'));
+    expect(identifiers[1]).toStrictEqual(buildResponse('Identifier', 'xyz', [2, 5], 'xyz'));
+    expect(identifiers[2]).toStrictEqual(buildResponse('Identifier', '_bar', [6, 10], '_bar'));
+    expect(identifiers[3]).toStrictEqual(
+      buildResponse('Identifier', '$dollar', [11, 18], '$dollar')
+    );
+    expect(identifiers[4]).toStrictEqual(buildResponse('Identifier', 'd1g1t', [19, 24], 'd1g1t'));
   });
 
   it('handles strings', () => {
@@ -120,25 +127,46 @@ describe('The tokenization function', () => {
     const {tokens: escapes} = tokenize('"quotes with \\\"escape\\\""');
 
     expect(strings[0]).toStrictEqual(
-      buildResponse('StringLiteral', 'double quotes', `\"double quotes\"`)
+      buildResponse('StringLiteral', 'double quotes', [0, 15], `\"double quotes\"`)
     );
     expect(strings[1]).toStrictEqual(
-      buildResponse('StringLiteral', 'single quotes', `\"single quotes\"`)
+      buildResponse('StringLiteral', 'single quotes', [16, 31], `'single quotes'`)
     );
     expect(strings[2]).toStrictEqual(
-      buildResponse('TemplateLiteral', 'backticks', `\"backticks\"`)
+      buildResponse('TemplateLiteral', 'backticks', [32, 43], '`backticks`')
     );
     expect(escapes[0]).toStrictEqual(
-      buildResponse('StringLiteral', `quotes with \"escape\"`, `"quotes with \\"escape\\\""`)
+      buildResponse(
+        'StringLiteral',
+        `quotes with \"escape\"`,
+        [0, 24],
+        `"quotes with \\"escape\\\""`
+      )
     );
     /* eslint-enable */
   });
 
   it('handles operators', () => {
-    OPERATORS.forEach(opt => {
-      const { tokens } = tokenize(opt);
+    const filteredByLength = [];
 
-      expect(tokens[0]).toStrictEqual(buildResponse('Operator', opt));
+    // Filter all operators into groups based on the number of characters per operator.
+    for (let i = 1; i < 5; i++) {
+      const arr = OPERATORS.filter(op => op.length === i);
+
+      filteredByLength.push(arr);
+    }
+
+    // Loop through the list of length-based operator groups.
+    filteredByLength.forEach((group, idx) => {
+      // The minimum length of an operator is 1.
+      const end = idx + 1;
+
+      // Loop through each operator in the current group.
+      group.forEach(item => {
+        const { tokens } = tokenize(item);
+
+        expect(tokens[0]).toStrictEqual(buildResponse('Operator', item, [0, end]));
+      });
     });
   });
 });

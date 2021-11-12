@@ -1,3 +1,4 @@
+import generateToken from './utils/tokens';
 import { isParenthetical } from './checkChar';
 import type { ISubLoop } from './tokenize';
 
@@ -37,10 +38,7 @@ const findGroupings = (cursor: number, current: string): ISubLoop | null => {
     return {
       err: '',
       finalPosition: cursor + 1,
-      token: {
-        type: getGroupingType(current),
-        value: current,
-      },
+      token: generateToken(cursor, getGroupingType(current), current),
     };
   }
 

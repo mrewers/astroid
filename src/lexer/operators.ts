@@ -1,3 +1,4 @@
+import generateToken from './utils/tokens';
 import { isCommentDelimiter, isOperator, isSlash, SINGULAR_OPERATORS } from './checkChar';
 import type { ISubLoop } from './tokenize';
 
@@ -80,15 +81,10 @@ const findOperators = (cursor: number, current: string, input: string): ISubLoop
       err = `Invalid operator ${op}`;
     }
 
-    const token = {
-      type: 'Operator',
-      value: op,
-    };
-
     return {
       err,
       finalPosition,
-      token,
+      token: generateToken(cursor, 'Operator', op),
     };
   }
 

@@ -1,30 +1,27 @@
+import generateToken from './utils/tokens';
 import { isIdentifier, isInitIdentifier } from './checkChar';
 import { isBoolean, isKeyword, isNull } from './keywords';
-import type { INode, ISubLoop } from './tokenize';
+import type { IToken, ISubLoop } from './tokenize';
 
-const categorizeWord = (str: string): INode => {
-  let type = 'Identifier';
-  let value: boolean | string | null = str;
-
+/**
+ * Identifies what sort of word is provided and returns an appropriate token.
+ * @param str - The found word.
+ * @param cursor - The position along input string that the parser is looking at.
+ */
+const categorizeWord = (str: string, cursor: number): IToken => {
   if (isBoolean(str)) {
-    type = 'BooleanLiteral';
-    value = str === 'true';
+    return generateToken(cursor, 'BooleanLiteral', str, val => val === 'true');
   }
 
   if (isNull(str)) {
-    type = 'NullLiteral';
-    value = null;
+    return generateToken(cursor, 'NullLiteral', str, () => null);
   }
 
   if (isKeyword(str)) {
-    type = 'Keyword';
+    return generateToken(cursor, 'Keyword', str);
   }
 
-  return {
-    type,
-    value,
-    raw: str,
-  };
+  return generateToken(cursor, 'Identifier', str);
 };
 
 /**
@@ -36,7 +33,6 @@ const categorizeWord = (str: string): INode => {
 const findIdentifiers = (cursor: number, current: string, input: string): ISubLoop | null => {
   if (isInitIdentifier(current)) {
     let finalPosition = cursor;
-    const err = '';
     let word = current;
 
     // Need the extra check for input length here, otherwise
@@ -46,9 +42,9 @@ const findIdentifiers = (cursor: number, current: string, input: string): ISubLo
     }
 
     return {
-      err,
+      err: '',
       finalPosition,
-      token: categorizeWord(word),
+      token: categorizeWord(word, cursor),
     };
   }
 
