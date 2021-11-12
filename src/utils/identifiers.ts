@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 import { isIdentifier, isInitIdentifier } from './checkChar';
-import { isBoolean, isNull } from './keywords';
+import { isBoolean, isKeyword, isNull } from './keywords';
 import type { INode, ISubLoop } from './tokenize';
 
 const categorizeWord = (str: string): INode => {
@@ -15,6 +15,10 @@ const categorizeWord = (str: string): INode => {
   if (isNull(str)) {
     type = 'NullLiteral';
     value = null;
+  }
+
+  if (isKeyword(str)) {
+    type = 'Keyword';
   }
 
   return {

@@ -22,7 +22,6 @@ const keywords = [
   'in',
   'instanceof',
   'new',
-  'null',
   'return',
   'super',
   'switch',
@@ -34,7 +33,6 @@ const keywords = [
   'while',
   'with',
   'yield',
-  ...booleans,
   ...declarations,
 ];
 
