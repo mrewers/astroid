@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 import findComments from './comments';
 import findIdentifiers from './identifiers';
 import findGroupings from './groupings';

@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 import { isIdentifier, isInitIdentifier } from './checkChar';
 import { isBoolean, isKeyword, isNull } from './keywords';
 import type { INode, ISubLoop } from './tokenize';

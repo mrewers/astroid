@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 import { isQuote } from './checkChar';
 import type { ISubLoop } from './tokenize';
 

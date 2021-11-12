@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 import { isCommentDelimiter, isOperator, isSlash, SINGULAR_OPERATORS } from './checkChar';
 import type { ISubLoop } from './tokenize';
 

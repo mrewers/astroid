@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 import { isAsterisk, isSlash } from './checkChar';
 import type { ISubLoop } from './tokenize';
 

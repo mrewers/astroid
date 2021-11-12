@@ -131,10 +131,11 @@ describe('The tokenization function', () => {
     expect(escapes[0]).toStrictEqual(
       buildResponse('StringLiteral', `quotes with \"escape\"`, `"quotes with \\"escape\\\""`)
     );
+    /* eslint-enable */
   });
 
   it('handles operators', () => {
-    OPERATORS.forEach((opt) => {
+    OPERATORS.forEach(opt => {
       const { tokens } = tokenize(opt);
 
       expect(tokens[0]).toStrictEqual(buildResponse('Operator', opt));
