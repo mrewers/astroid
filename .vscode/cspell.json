@@ -2,10 +2,15 @@
   "dictionaryDefinitions": [
     {
       "name": "ESLint",
-      "path": "../config/dictionaries/eslint.txt"
+      "path": "../.config/dictionaries/eslint.txt"
+    },
+    {
+      "name": "NPM Packages",
+      "path": "../.config/dictionaries/npm-package-names.txt"
     }
   ],
   "dictionaries": [
-    "ESLint"
+    "ESLint",
+    "NPM Packages"
   ]
 }
