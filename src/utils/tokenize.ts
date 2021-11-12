@@ -1,8 +1,9 @@
 /* eslint-disable no-plusplus */
 import findComments from './comments';
+import findIdentifiers from './identifiers';
+import findGroupings from './groupings';
 import findNumerics from './numerics';
 import findOperators from './operators';
-import findIdentifiers from './identifiers';
 import findStrings from './strings';
 import { isWhiteSpace } from './checkChar';
 
@@ -55,6 +56,15 @@ const tokenize = (input: string): IParsed => {
 
     if (comments) {
       updateState(comments);
+
+      continue;
+    }
+
+    // Check for groupings.
+    const groupings = findGroupings(cursor, current);
+
+    if (groupings) {
+      updateState(groupings);
 
       continue;
     }

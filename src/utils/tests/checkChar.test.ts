@@ -1,4 +1,4 @@
-import { checkChar } from '../checkChar';
+import * as checkChar from '../checkChar';
 
 const chars = {
   carriage: '\r',
