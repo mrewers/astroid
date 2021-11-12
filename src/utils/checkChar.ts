@@ -36,10 +36,13 @@ export const isQuestion = (char: string): boolean => char === '?';
 export const isSemicolon = (char: string): boolean => char === ';';
 
 // Special characters
+export const isAsterisk = (char: string): boolean => char === '*';
 export const isDollar = (char: string): boolean => char === '$';
+export const isSlash = (char: string): boolean => char === '/';
 export const isUnderscore = (char: string): boolean => char === '_';
 
 // Combined checks
+export const isCommentDelimiter = (char: string): boolean => isAsterisk(char) || isSlash(char);
 export const isDelimiter = (char: string): boolean => isWhiteSpace(char) || isOperator(char);
 export const isNumeric = (char: string): boolean => isNumber(char) || isPeriod(char);
 export const isInitIdentifier = (char: string): boolean =>

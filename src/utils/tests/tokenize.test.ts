@@ -44,6 +44,19 @@ describe('The tokenization function', () => {
     expect(whitespaces).toHaveLength(0);
   });
 
+  it('handles comment', () => {
+    const { tokens: block } = tokenize('/* Block comment */');
+    const { tokens: line } = tokenize('// Line comment');
+
+    expect(block).toHaveLength(1);
+
+    expect(block[0]).toStrictEqual(buildResponse('BlockComment', ' Block comment '));
+
+    expect(line).toHaveLength(1);
+
+    expect(line[0]).toStrictEqual(buildResponse('LineComment', ' Line comment'));
+  });
+
   it('handles null', () => {
     const { tokens: nulls } = tokenize('null');
 

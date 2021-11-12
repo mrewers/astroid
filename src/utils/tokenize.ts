@@ -1,4 +1,5 @@
 /* eslint-disable no-plusplus */
+import findComments from './comments';
 import findNumerics from './numerics';
 import findOperators from './operators';
 import findStrings from './strings';
@@ -67,6 +68,15 @@ const tokenize = (input: string): IParsed => {
     // Skip over whitespace.
     if (isWhiteSpace(current)) {
       cursor += 1;
+      continue;
+    }
+
+    // Check for comments.
+    const comments = findComments(cursor, current, input);
+
+    if (comments) {
+      updateState(comments);
+
       continue;
     }
 
