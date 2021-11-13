@@ -2,18 +2,18 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import type { FunctionalComponent } from 'preact';
 
-import tokenize from '../parser/lexer/tokenize';
+import parse from '../parser/parser';
 
 import './App.css';
 
 const populateAST = (input: string): h.JSX.Element => {
-  const parsed = tokenize(input);
+  const parsed = parse(input);
 
   if (parsed.error !== '') {
     return <p>{`Error: ${parsed.error}`}</p>;
   }
 
-  return <code>{JSON.stringify(parsed.tokens, null, 2)}</code>;
+  return <code>{JSON.stringify(parsed.ast, null, 2)}</code>;
 };
 
 const App: FunctionalComponent = () => {

@@ -21,12 +21,16 @@ interface ISubLoop {
   readonly token: IToken;
 }
 
-interface IParsed {
+interface ILexed {
   readonly error: string;
   readonly tokens: IToken[];
 }
 
-const tokenize = (input: string): IParsed => {
+/**
+ * Converts a string of JavaScript code into an array of it's constituent tokens.
+ * @param input - A string representing some JavaScript code.
+ */
+const tokenize = (input: string): ILexed => {
   let error = '';
   const tokens: IToken[] = [];
   let cursor = 0;
@@ -116,6 +120,6 @@ const tokenize = (input: string): IParsed => {
   };
 };
 
-export type { IToken, ISubLoop };
+export type { ILexed, IToken, ISubLoop };
 
 export default tokenize;
