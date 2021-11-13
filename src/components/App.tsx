@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import type { FunctionalComponent } from 'preact';
 
-import tokenize from '../lexer/tokenize';
+import tokenize from '../parser/lexer/tokenize';
 
 import './App.css';
 

@@ -43,7 +43,7 @@ module.exports = {
       }
     },
     {
-      files: ['src/lexer/**/*.ts'], // Rule overrides for the parser library.
+      files: ['src/parser/lexer/**/*.ts'], // Rule overrides for the parser library.
       rules: {
         'no-plusplus': 'off', // Prefix increment is helpful when looping over characters.
         'sort-keys': 'off', // We want the token keys in a specific non-alphabetical order.
