@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['@cryptopapers/eslint-config', '@cryptopapers/eslint-config/react'],
+  extends: ['@cryptopapers/eslint-config'],
   ignorePatterns: ['**/dist/', 'docs/'],
   overrides: [
     {
@@ -27,8 +27,20 @@ module.exports = {
             ignorePattern: 'pragma|ignore|prettier-ignore',
           }
         ],
+        'import/no-unassigned-import': [
+          'error',
+          {
+            allow: ['**/*.css', '**/*.sass', '**/*.scss', 'preact/devtools'],
+          },
+        ],
         'sort-imports': 'off',
       },
+      settings: {
+        react: {
+          pragma: 'h',
+          version: '16', // Since we're using Preact, we manually specify the React version.
+        }
+      }
     },
     {
       files: ['src/lexer/**/*.ts'], // Rule overrides for the parser library.
@@ -39,7 +51,4 @@ module.exports = {
     },
   ],
   parser: '@babel/eslint-parser',
-  settings: {
-    react: { pragma: 'h' }
-  }
 };
