@@ -1,4 +1,4 @@
-import type { IToken } from '../tokenize';
+import type { IToken } from './tokenize';
 
 const PAREN_TYPES = [
   'OpenParen',

@@ -1,5 +1,5 @@
-import generateToken from './utils/tokens';
-import { isCommentDelimiter, isOperator, isSlash, SINGULAR_OPERATORS } from './checkChar';
+import generateToken from './tokens';
+import { isCommentDelimiter, isOperator, isSlash, SINGULAR_OPERATORS } from '../utils/checkChar';
 import type { ISubLoop } from './tokenize';
 
 const combos = ['%=', '/=', '^='];

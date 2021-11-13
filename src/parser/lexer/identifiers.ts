@@ -1,6 +1,6 @@
-import generateToken from './utils/tokens';
-import { isIdentifier, isInitIdentifier } from './checkChar';
-import { isBoolean, isKeyword, isNull } from './keywords';
+import generateToken from './tokens';
+import { isIdentifier, isInitIdentifier } from '../utils/checkChar';
+import { isBoolean, isKeyword, isNull } from '../utils/keywords';
 import type { IToken, ISubLoop } from './tokenize';
 
 /**

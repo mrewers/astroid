@@ -4,7 +4,7 @@ import findGroupings from './groupings';
 import findNumerics from './numerics';
 import findOperators from './operators';
 import findStrings from './strings';
-import { isWhiteSpace } from './checkChar';
+import { isWhiteSpace } from '../utils/checkChar';
 
 interface IToken {
   readonly type: string;

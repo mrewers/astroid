@@ -1,5 +1,5 @@
-import generateToken from './utils/tokens';
-import { isAsterisk, isSlash } from './checkChar';
+import generateToken from './tokens';
+import { isAsterisk, isSlash } from '../utils/checkChar';
 import type { ISubLoop } from './tokenize';
 
 /**

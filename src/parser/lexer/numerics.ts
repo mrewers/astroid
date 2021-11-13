@@ -1,5 +1,5 @@
-import generateToken from './utils/tokens';
-import { isDelimiter, isInitIdentifier, isNumeric } from './checkChar';
+import generateToken from './tokens';
+import { isDelimiter, isInitIdentifier, isNumeric } from '../utils/checkChar';
 import type { IToken, ISubLoop } from './tokenize';
 
 const ALLOWED_LETTERS = /[e|E|n]/gu;

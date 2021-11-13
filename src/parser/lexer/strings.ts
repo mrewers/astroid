@@ -1,5 +1,5 @@
-import generateToken from './utils/tokens';
-import { isQuote } from './checkChar';
+import generateToken from './tokens';
+import { isQuote } from '../utils/checkChar';
 import type { ISubLoop } from './tokenize';
 
 /**
