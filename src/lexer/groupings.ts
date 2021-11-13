@@ -21,7 +21,7 @@ const getGroupingType = (char: string): string => {
     case '}':
       return 'ClosingBrace';
     default:
-      return '';
+      throw new Error('Not a parenthetical character.'); // This line should be unreachable.
   }
 };
 

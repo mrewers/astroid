@@ -1,7 +1,16 @@
 import type { IToken } from '../tokenize';
 
+const PAREN_TYPES = [
+  'OpenParen',
+  'ClosingParen',
+  'OpenBracket',
+  'ClosingBracket',
+  'OpenBrace',
+  'ClosingBrace',
+];
+
 // Token types that should not include a raw value.
-const OMIT_RAW = ['BlockComment', 'LineComment', 'Operator'];
+const OMIT_RAW = ['BlockComment', 'Keyword', 'LineComment', 'Operator', ...PAREN_TYPES];
 
 interface IOptionalValues extends IGenerateTokenOpts {
   raw?: string;

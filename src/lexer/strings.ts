@@ -20,7 +20,7 @@ const tokenType = (mark: string): string => {
     case 'string':
       return 'StringLiteral';
     default:
-      return '';
+      throw new Error('Not a quotation mark character.'); // This line should be unreachable.
   }
 };
 

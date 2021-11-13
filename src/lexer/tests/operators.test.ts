@@ -16,6 +16,14 @@ describe('The findOperators error states', () => {
 
     expect(op).toBeNull();
   });
+
+  it('aborts if a comment delimiter is provided', () => {
+    const line = findOperators(0, '/', '//');
+    const block = findOperators(1, '*', '/*');
+
+    expect(line).toBeNull();
+    expect(block).toBeNull();
+  });
 });
 
 describe('The findOperators function advances the cursor', () => {
