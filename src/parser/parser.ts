@@ -1,9 +1,10 @@
 import analyzeSyntax from './analyzer/analyzeSyntax';
 import tokenize from './lexer/tokenize';
 import type { IToken } from './lexer/tokenize';
+import type { IBlockStatement } from './analyzer/blocks';
 
 interface IParsed {
-  readonly ast: IToken[];
+  readonly ast: Array<IBlockStatement | IToken>;
   readonly error: string;
 }
 
@@ -16,7 +17,7 @@ const parse = (input: string): IParsed => {
     error = tokenError;
   }
 
-  const { tokens: ast, error: syntaxError } = analyzeSyntax(tokens);
+  const { ast, error: syntaxError } = analyzeSyntax(tokens);
 
   if (syntaxError) {
     error = syntaxError;
@@ -27,5 +28,7 @@ const parse = (input: string): IParsed => {
     error,
   };
 };
+
+export type { IParsed };
 
 export default parse;
