@@ -3,8 +3,7 @@ import { useState } from 'preact/hooks';
 import type { FunctionalComponent } from 'preact';
 
 import parse from '../../parser/parser';
-
-import './Astroid.css';
+import style from './Astroid.module.scss';
 
 const populateAST = (input: string): h.JSX.Element => {
   const parsed = parse(input);
@@ -26,13 +25,13 @@ const Astroid: FunctionalComponent = () => {
   };
 
   return (
-    <div className="container panes">
+    <div className={style.panes}>
       <div>
-        <h2 className="pane-title">Input</h2>
+        <h2 className={style.title}>Input</h2>
         <textarea value={input} onBlur={(e: Event): void => handleInput(e)} />
       </div>
       <div>
-        <h2 className="pane-title">AST</h2>
+        <h2 className={style.title}>AST</h2>
         <pre>{populateAST(input)}</pre>
       </div>
     </div>

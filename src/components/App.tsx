@@ -4,16 +4,15 @@ import type { FunctionalComponent } from 'preact';
 
 import Astroid from './Astroid/Astroid';
 import Poker from './Poker/Poker';
-
-import './App.css';
+import style from './App.module.scss';
 
 const App: FunctionalComponent = () => (
   <div>
     <header>
-      <h1 className="title">ASTroid</h1>
+      <h1 className={style.title}>ASTroid</h1>
     </header>
     <nav>
-      <ul className="nav">
+      <ul className={style.nav}>
         <li>
           <a href="/">Home</a>
         </li>

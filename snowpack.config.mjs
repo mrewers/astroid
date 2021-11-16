@@ -10,7 +10,10 @@ const snowpackConfig = {
     },
     src: { url: '/dist' },
   },
-  plugins: ['@snowpack/plugin-typescript'],
+  plugins: [
+    '@snowpack/plugin-sass',
+    '@snowpack/plugin-typescript'
+  ],
 };
 
 export default snowpackConfig;

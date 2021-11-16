@@ -4,17 +4,14 @@ textarea {
   padding: 1rem;
 }
 
-.container {
+.panes {
   height: 100%;
   margin: 1rem;
-}
-
-.panes {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(2, 50%);
 }
 
-.pane-title {
+.title {
   margin-bottom: 1rem;
 }
