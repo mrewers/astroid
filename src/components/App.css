@@ -1,26 +1,19 @@
 main {
-  height: calc(100vh - 150px);
+  height: calc(100vh - 180px);
 }
 
-textarea {
-  width: 100%;
-  height: 100%;
-  padding: 1rem;
+.nav {
+  display: flex;
+  margin: 0 1rem;
+  list-style: none;
 }
 
-.container {
-  height: 100%;
-  margin: 1rem;
+.nav > li {
+  margin: 0.5rem;
 }
 
-.panes {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(2, 50%);
-}
-
-.pane-title {
-  margin-bottom: 1rem;
+.nav > li:first-of-type {
+  margin-left: 0;
 }
 
 .title {

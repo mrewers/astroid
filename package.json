@@ -10,7 +10,8 @@
     "test": "jest ./"
   },
   "dependencies": {
-    "preact": "^10.5.15"
+    "preact": "^10.5.15",
+    "preact-router": "^3.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",

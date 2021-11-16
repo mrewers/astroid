@@ -1,50 +1,35 @@
 import { h } from 'preact';
-import { useState } from 'preact/hooks';
+import { Router } from 'preact-router';
 import type { FunctionalComponent } from 'preact';
 
-import parse from '../parser/parser';
+import Astroid from './Astroid/Astroid';
+import Poker from './Poker/Poker';
 
 import './App.css';
 
-const populateAST = (input: string): h.JSX.Element => {
-  const parsed = parse(input);
-
-  if (parsed.error !== '') {
-    return <p>{`Error: ${parsed.error}`}</p>;
-  }
-
-  return <code>{JSON.stringify(parsed.ast, null, 2)}</code>;
-};
-
-const App: FunctionalComponent = () => {
-  const [input, setInput] = useState('');
-
-  const handleInput = (e: Event): void => {
-    if (e.target instanceof HTMLTextAreaElement) {
-      setInput(e.target.value);
-    }
-  };
-
-  return (
-    <div>
-      <header>
-        <h1 className="title">ASTroid</h1>
-      </header>
-      <main>
-        <div className="container panes">
-          <div>
-            <h2 className="pane-title">Input</h2>
-            <textarea value={input} onBlur={(e: Event): void => handleInput(e)} />
-          </div>
-          <div>
-            <h2 className="pane-title">AST</h2>
-            <pre>{populateAST(input)}</pre>
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-};
+const App: FunctionalComponent = () => (
+  <div>
+    <header>
+      <h1 className="title">ASTroid</h1>
+    </header>
+    <nav>
+      <ul className="nav">
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/poker">Poker</a>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <Router>
+        <Astroid path="/" />
+        <Poker path="/poker" />
+      </Router>
+    </main>
+  </div>
+);
 
 App.displayName = 'App';
 
