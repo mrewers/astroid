@@ -1,5 +1,5 @@
 import { isBlockOpen, isBlockClose } from '../utils/checkToken';
-import { peek, pop } from '../utils/fp';
+import { peek, pop } from '../../fp/fp';
 import type { IToken } from '../lexer/tokenize';
 
 interface IBlockStatement {
