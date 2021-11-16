@@ -1,0 +1,13 @@
+.list {
+  display: flex;
+  margin: 0 1rem;
+  list-style: none;
+
+  > li {
+    margin: 0.5rem;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+}

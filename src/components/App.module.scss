@@ -2,20 +2,6 @@ main {
   height: calc(100vh - 180px);
 }
 
-.nav {
-  display: flex;
-  margin: 0 1rem;
-  list-style: none;
-
-  > li {
-    margin: 0.5rem;
-
-    &:first-of-type {
-      margin-left: 0;
-    }
-  }
-}
-
 .title {
   padding: 1rem;
 }
