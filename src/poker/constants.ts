@@ -6,6 +6,7 @@ interface ICard {
 
 export const RANKS = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
 export const SUITS = ['clubs', 'diamonds', 'hearts', 'spades'];
+export const VALUE = [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
 /**
  * Combines ranks and suits to create a deck of 52 cards.
