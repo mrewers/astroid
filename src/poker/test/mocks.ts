@@ -90,10 +90,31 @@ const twoPair = [D2, H2, C4, D4];
 const pair = [C3, D3];
 const highCard = [HA];
 
+// Controls
+const controls = {
+  fiveGap: [D8, C2],
+  lower: [DK, DQ, DJ],
+  paired: pair,
+  suited: [S2, S7],
+  unpaired: [D3, D5],
+  unsuited: [C5, H9],
+};
+
+// A selection of possible pocket cards.
+const holeCards = {
+  o27: [C2, H7],
+  pA: [CA, HA],
+  pT: [CT, DT],
+  s57: [H5, H7],
+  sAK: [SA, SK],
+};
+
 const hands = {
+  controls,
   flush: generateHand(flush, [C2, S5]),
   fullHouse: generateHand(fullHouse, [S8, CJ]),
   highCard: generateHand(highCard, [S2, S4, D5, C9, CJ, HQ]),
+  holeCards,
   pair: generateHand(pair, [S4, D6, H8, HJ, DA]),
   quads: generateHand(quads, [S7, DJ, CK]),
   royalFlush: generateHand(royalFlush, [H3, H7]),
