@@ -1,12 +1,46 @@
 interface ICard {
   readonly rank: string;
-  readonly suit: string;
+  readonly suit?: string;
   readonly value: number;
 }
 
 export const RANKS = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
 export const SUITS = ['clubs', 'diamonds', 'hearts', 'spades'];
 export const VALUE = [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+
+/**
+ * Generates a Map in to store the numeric value of each rank.
+ */
+export const rankValueMap = (): Map<string, number> => {
+  const mapping = [];
+
+  for (let i = 0; i < 13; i++) {
+    mapping.push([RANKS[i], VALUE[i]]);
+  }
+
+  /* eslint-disable @typescript-eslint/consistent-type-assertions */
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  return new Map<string, number>(<any>mapping);
+  /* eslint-enable */
+};
+
+/**
+ * Retrieves the value of a card based on it's rank.
+ * @param rank - The rank of a given card.
+ */
+export const getRankValue = (rank: string): number | undefined => {
+  const mapping = rankValueMap();
+
+  return mapping.get(rank);
+};
+
+/**
+ * Construct a card (without it's suit) from the card's rank.
+ * @param c - The card's rank.
+ */
+export const cardFromRank = (c: string): ICard => {
+  return { rank: c, value: getRankValue(c) ?? 0 };
+};
 
 /**
  * Combines ranks and suits to create a deck of 52 cards.

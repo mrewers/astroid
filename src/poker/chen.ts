@@ -11,6 +11,7 @@
  */
 import { arePaired, areSuited, getCardGap, lowerThanX } from './constants';
 import type { ICard } from './constants';
+import type { IPocketCardsData } from './pocketCards';
 
 interface IIntermediateScore {
   readonly cards: ICard[];
@@ -118,10 +119,22 @@ const gapAdjustment = ({ cards, score }: IIntermediateScore): number => {
  * Uses the Chen formula to calculate the value of a given two-card combination.
  * @param cards - A combination of two cards.
  */
-const calculateChenScore = (cards: ICard[]): number => {
+export const calculateChenScore = (cards: ICard[]): number => {
   const points = gapAdjustment(suitedAdjustment(pairAdjustment(highCardValue(cards))));
 
   return Math.round(points);
 };
 
-export default calculateChenScore;
+export const calculateChenFromData = (data: IPocketCardsData): number => {
+  let score = scoreCard(data.highCard);
+
+  if (data.pair) {
+    score *= 2;
+  }
+
+  if (data.suited === true) {
+    score += 2;
+  }
+
+  return Math.round(gapAdjustment({ cards: [data.highCard, data.lowCard], score }));
+};

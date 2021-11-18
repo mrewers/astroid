@@ -1,9 +1,18 @@
-import { RANKS } from './constants';
+import { cardFromRank, getCardGap, RANKS } from './constants';
 import { peek, pop } from '../fp/fp';
+import type { ICard } from './constants';
 
 interface IPocketCards {
   readonly card: string;
   readonly combos: string[];
+}
+
+interface IPocketCardsData {
+  readonly gap: number;
+  readonly highCard: ICard;
+  readonly lowCard: ICard;
+  readonly pair: boolean;
+  readonly suited: boolean | 'N/A';
 }
 
 /**
@@ -77,10 +86,30 @@ const orderPocketCards = (
  * Generate a matrix of possible two card combinations.
  * With AA in the top left position and 22 in the bottom right position.
  */
-const pocketCardsMatrix = (): IPocketCards[] => {
+export const pocketCardsMatrix = (): IPocketCards[] => {
   const combos = pocketCards([...RANKS]);
 
   return orderPocketCards([...RANKS], combos);
 };
 
-export default pocketCardsMatrix;
+/**
+ * Extrapolate the data for a given two card combination based off of it's shorthand name.
+ * For example AA represents two aces and 34o indicates a three and a four off suit.
+ * @param shorthand - A two or three letter notation to describe a two card combination.
+ */
+export const getDataFromShorthand = (shorthand: string): IPocketCardsData => {
+  const cardOne = cardFromRank(shorthand[0]);
+  const cardTwo = cardFromRank(shorthand[1]);
+
+  const pair = shorthand.length === 2;
+
+  return {
+    gap: getCardGap([cardOne, cardTwo]),
+    highCard: cardOne.value > cardTwo.value ? cardOne : cardTwo,
+    lowCard: cardOne.value < cardTwo.value ? cardOne : cardTwo,
+    pair,
+    suited: pair ? 'N/A' : shorthand.endsWith('s'),
+  };
+};
+
+export type { IPocketCardsData };
