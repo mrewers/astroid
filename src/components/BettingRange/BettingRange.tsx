@@ -1,7 +1,8 @@
 import { h } from 'preact';
 import type { FunctionalComponent } from 'preact';
 
-import pocketCardsMatrix from '../../poker/pocketCards';
+import RangeItem from './RangeItem/RangeItem';
+import { pocketCardsMatrix } from '../../poker/pocketCards';
 import style from './BettingRange.module.scss';
 
 const BettingRange: FunctionalComponent = () => {
@@ -13,9 +14,7 @@ const BettingRange: FunctionalComponent = () => {
         {rows.map(row => (
           <div key={row.card} className={style.row}>
             {row.combos.map(item => (
-              <div key={item} className={style.item}>
-                {item}
-              </div>
+              <RangeItem key={item} item={item} />
             ))}
           </div>
         ))}
