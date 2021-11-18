@@ -16,6 +16,12 @@ module.exports = {
             assertionStyle: 'as', // Angle bracket notation, while preferred, doesn't play well with JSX.
           },
         ],
+        '@typescript-eslint/no-type-alias': [
+          'error',
+          {
+            allowGenerics: 'always'
+          }
+        ],
         '@typescript-eslint/no-unsafe-call': 'warn',
         '@typescript-eslint/prefer-readonly-parameter-types': 'off',
         'capitalized-comments': [
