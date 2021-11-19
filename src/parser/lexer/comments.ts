@@ -74,7 +74,7 @@ const findComments = (cursor: number, current: string, input: string): ISubLoop 
     iterate(condition);
 
     // Trim the comment delimiters.
-    const lineCommentTransform = (str: string): string => str.substring(2);
+    const lineCommentTransform = (str: string): string => str.substring(2, str.length - 1);
 
     return {
       err,

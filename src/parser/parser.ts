@@ -1,10 +1,13 @@
 import analyzeSyntax from './analyzer/analyzeSyntax';
 import tokenize from './lexer/tokenize';
 import type { IToken } from './lexer/tokenize';
-import type { IBlockStatement } from './analyzer/blocks';
+import type { IAstBody } from './analyzer/analyzeSyntax';
 
 interface IParsed {
-  readonly ast: Array<IBlockStatement | IToken>;
+  readonly ast: {
+    comments: IToken[];
+    body: IAstBody[];
+  };
   readonly error: string;
 }
 

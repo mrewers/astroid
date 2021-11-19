@@ -1,21 +1,22 @@
 import blockStatements from './blocks';
+import chk from '../utils/checkToken';
 import functionDeclarations from './functions';
 import type { IBlockStatement } from './blocks';
 import type { IFunctionDeclaration } from './functions';
 import type { IToken } from '../lexer/tokenize';
 import type { IParsed } from '../parser';
 
-type IValue = IBlockStatement | IFunctionDeclaration | IToken;
+type IAstBody = IBlockStatement | IFunctionDeclaration | IToken;
 interface ILoopReturn {
-  readonly value: IValue;
-  readonly remaining: IValue[];
+  readonly value: IAstBody;
+  readonly remaining: IAstBody[];
 }
 
 const recurse = (
-  arr: IValue[],
-  func: (a: IValue[]) => { value: IValue; remaining: IValue[] },
-  final: IValue[] = []
-): IValue[] => {
+  arr: IAstBody[],
+  func: (a: IAstBody[]) => { value: IAstBody; remaining: IAstBody[] },
+  final: IAstBody[] = []
+): IAstBody[] => {
   if (arr.length) {
     const { value, remaining } = func(arr);
 
@@ -32,24 +33,38 @@ const recurse = (
  * @param tokens - A list of lexical tokens.
  */
 const analyzeSyntax = (tokens: IToken[]): IParsed => {
-  let ast = [] as IValue[];
+  // Extract the comments from the list of tokens.
+  const comments = [] as IToken[];
+  const nonComments = tokens.filter(ts => {
+    if (chk.isComment(ts.type)) {
+      comments.push(ts);
+    }
+
+    return !chk.isComment(ts.type);
+  });
+
+  // Initialize the AST body.
+  let body = [] as IAstBody[];
 
   // Look for block statements.
-  if (tokens.length > 0) {
-    ast = recurse(tokens, blockStatements);
+  if (nonComments.length > 0) {
+    body = recurse(nonComments, blockStatements);
   }
 
   // Look for function declarations.
-  if (ast.length > 0) {
-    ast = recurse(ast, functionDeclarations);
+  if (body.length > 0) {
+    body = recurse(body, functionDeclarations);
   }
 
   return {
-    ast,
+    ast: {
+      comments,
+      body,
+    },
     error: '',
   };
 };
 
-export type { ILoopReturn };
+export type { IAstBody, ILoopReturn };
 
 export default analyzeSyntax;
