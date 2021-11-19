@@ -1,5 +1,5 @@
 import { cardFromRank, getCardGap, RANKS } from './constants';
-import { peek, pop } from '../fp/fp';
+import { first, peek } from '../fp/fp';
 import type { ICard } from './constants';
 
 interface IPocketCards {
@@ -42,7 +42,7 @@ const pocketCards = (ranks: string[], combos: string[][] = []): string[] => {
   combos.push(mixes);
 
   // Move to the next rank.
-  pop(ranks);
+  first(ranks);
 
   // Recurse through the ranks until we visit them all.
   if (ranks.length > 0) {
@@ -66,7 +66,7 @@ const orderPocketCards = (
   combos: string[],
   rows: IPocketCards[] = []
 ): IPocketCards[] => {
-  const card = pop(ranks) as string;
+  const card = first(ranks) as string;
 
   // Off-suit combo with higher card, precedes pair, which precedes suited combo with lower card.
   const off = combos.filter(c => c.charAt(1) === card && c.endsWith('o'));

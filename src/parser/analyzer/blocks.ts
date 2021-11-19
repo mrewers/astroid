@@ -1,5 +1,5 @@
 import { isBlockOpen, isBlockClose } from '../utils/checkToken';
-import { peek, pop } from '../../fp/fp';
+import { first, peek } from '../../fp/fp';
 import type { IToken } from '../lexer/tokenize';
 
 interface IBlockStatement {
@@ -26,7 +26,7 @@ const blockStatements = (tokens: IToken[]): ILoopInfo => {
       end = (peek(tokens) as IToken).end;
     }
 
-    pop(tokens);
+    first(tokens);
 
     const statement = {
       type: 'BlockStatement',
