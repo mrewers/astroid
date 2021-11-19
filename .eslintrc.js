@@ -19,6 +19,7 @@ module.exports = {
         '@typescript-eslint/no-type-alias': [
           'error',
           {
+            allowAliases: 'in-unions',
             allowGenerics: 'always'
           }
         ],
