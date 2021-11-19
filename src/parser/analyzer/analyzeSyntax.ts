@@ -1,37 +1,47 @@
 import blockStatements from './blocks';
+import functionDeclarations from './functions';
 import type { IBlockStatement } from './blocks';
+import type { IFunctionDeclaration } from './functions';
 import type { IToken } from '../lexer/tokenize';
 import type { IParsed } from '../parser';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+type IValue = IBlockStatement | IFunctionDeclaration | IToken;
+interface ILoopReturn {
+  readonly value: IValue;
+  readonly remaining: IValue[];
+}
+
 const recurse = (
-  arr: unknown[],
-  final: unknown[],
-  func: (a: any[]) => { value: unknown; remaining: unknown[] }
-): void => {
+  arr: IValue[],
+  func: (a: IValue[]) => { value: IValue; remaining: IValue[] },
+  final: IValue[] = []
+): IValue[] => {
   if (arr.length) {
     const { value, remaining } = func(arr);
 
     final.push(value);
 
-    recurse(remaining, final, func);
+    recurse(remaining, func, final);
   }
+
+  return final;
 };
-/* eslint-enable */
 
 /**
  * Loops through a list of tokens interpreting their syntactical meaning.
  * @param tokens - A list of lexical tokens.
  */
 const analyzeSyntax = (tokens: IToken[]): IParsed => {
-  let ast = [] as Array<IBlockStatement | IToken>;
+  let ast = [] as IValue[];
 
+  // Look for block statements.
   if (tokens.length > 0) {
-    const final = [] as Array<IBlockStatement | IToken>;
+    ast = recurse(tokens, blockStatements);
+  }
 
-    recurse(tokens, final, blockStatements);
-
-    ast = final;
+  // Look for function declarations.
+  if (ast.length > 0) {
+    ast = recurse(ast, functionDeclarations);
   }
 
   return {
@@ -39,5 +49,7 @@ const analyzeSyntax = (tokens: IToken[]): IParsed => {
     error: '',
   };
 };
+
+export type { ILoopReturn };
 
 export default analyzeSyntax;
