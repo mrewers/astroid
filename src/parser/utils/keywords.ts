@@ -1,5 +1,5 @@
 const booleans = ['true', 'false'];
-const declarations = ['const', 'let', 'var'];
+const variables = ['const', 'let', 'var'];
 
 const keywords = [
   'break',
@@ -33,20 +33,20 @@ const keywords = [
   'while',
   'with',
   'yield',
-  ...declarations,
+  ...variables,
 ];
 
 const isMember = (word: string, list: string[]): boolean => list.includes(word);
 
 export const isBoolean = (word: string): boolean => isMember(word, booleans);
-export const isDeclaration = (word: string): boolean => isMember(word, declarations);
 export const isKeyword = (word: string): boolean => isMember(word, keywords);
+export const isVariable = (word: string): boolean => isMember(word, variables);
 
 export const isNull = (word: string): boolean => word === 'null';
 
 export const keywordSearches = {
   isBoolean,
-  isDeclaration,
   isKeyword,
+  isVariable,
   isNull,
 };

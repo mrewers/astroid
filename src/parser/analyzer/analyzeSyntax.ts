@@ -1,6 +1,7 @@
 import blockStatements from './blocks';
 import chk from '../utils/checkToken';
 import functionDeclarations from './functions';
+import variableDeclarations from './variables';
 import type { IBlockStatement } from './blocks';
 import type { IFunctionDeclaration } from './functions';
 import type { IToken } from '../lexer/tokenize';
@@ -54,6 +55,11 @@ const analyzeSyntax = (tokens: IToken[]): IParsed => {
   // Look for function declarations.
   if (body.length > 0) {
     body = recurse(body, functionDeclarations);
+  }
+
+  // Look for variable declarations.
+  if (body.length > 0) {
+    body = recurse(body, variableDeclarations);
   }
 
   return {

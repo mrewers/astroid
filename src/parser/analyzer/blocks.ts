@@ -1,4 +1,4 @@
-import { isBlockOpen, isBlockClose } from '../utils/checkToken';
+import chk from '../utils/checkToken';
 import { first, peek } from '../../fp/fp';
 import type { IFunctionDeclaration } from './functions';
 import type { IToken } from '../lexer/tokenize';
@@ -22,13 +22,13 @@ const _peek = (ts: IToken[]): IBlockStatement | IToken => peek(ts) as IBlockStat
 const blockStatements = (tokens: IToken[]): ILoopReturn => {
   const token = _first(tokens);
 
-  if (isBlockOpen(token.type)) {
+  if (chk.isBlockOpen(token.type)) {
     const body = [];
     let { end } = token;
 
     // Populate the block body with it's tokens.
     // We do so recursively to account for nested blocks.
-    while (!isBlockClose(_peek(tokens).type)) {
+    while (!chk.isBlockClose(_peek(tokens).type)) {
       body.push(blockStatements(tokens).value);
 
       // Set the block end to the position of the closing brace.
