@@ -2,19 +2,13 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import type { FunctionalComponent } from 'preact';
 
-import parse from '../../parser/parser';
+import Ast from './AST/AST';
 import style from './Astroid.module.scss';
 
-const populateAST = (input: string): h.JSX.Element => {
-  const parsed = parse(input);
-
-  if (parsed.error !== '') {
-    return <p>{`Error: ${parsed.error}`}</p>;
-  }
-
-  return <code>{JSON.stringify(parsed.ast, null, 2)}</code>;
-};
-
+/**
+ * A JSX component that renders the AST playground page.
+ * @component
+ */
 const Astroid: FunctionalComponent = () => {
   const [input, setInput] = useState('');
 
@@ -32,7 +26,7 @@ const Astroid: FunctionalComponent = () => {
       </div>
       <div>
         <h2 className={style.title}>AST</h2>
-        <pre>{populateAST(input)}</pre>
+        <Ast raw={input} />
       </div>
     </div>
   );
