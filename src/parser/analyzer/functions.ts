@@ -1,12 +1,14 @@
 import chk from '../utils/checkToken';
-import { peek, first } from '../../fp/fp';
+import { transformIdentifier } from '../utils/transforms';
+import { first, peek } from '../../fp/fp';
 import type { IBlockStatement } from './blocks';
 import type { IToken } from '../lexer/tokenize';
 import type { ILoopReturn } from './analyzeSyntax';
+import type { IIdentifier } from '../utils/transforms';
 
 interface IFunctionDeclaration {
   readonly type: string;
-  readonly id?: IFunctionId;
+  readonly id?: IIdentifier;
   readonly start: number;
   readonly end: number;
   readonly params?: IToken[];
@@ -16,33 +18,12 @@ interface IFunctionDeclaration {
   readonly generator: boolean;
 }
 
-interface IFunctionId {
-  readonly type: string;
-  readonly name: string | null;
-  readonly start?: number;
-  readonly end?: number;
-}
-
 /* Adjust the first and peek functions to facilitate typing */
 const _first = (ts: Array<IBlockStatement | IToken>): IBlockStatement | IToken =>
   first(ts) as IBlockStatement | IToken;
 
 const _peek = (ts: Array<IBlockStatement | IToken>): IBlockStatement | IToken =>
   peek(ts) as IBlockStatement | IToken;
-
-/**
- * Converts a generic token type into a function id by converting
- * the value into a name and removing unneeded properties.
- * @param token - A tokenized code element.
- */
-const convertIdentifier = ({ end, start, type, value }: IToken): IFunctionId => {
-  return {
-    type,
-    name: typeof value === 'string' ? value : null,
-    start,
-    end,
-  };
-};
 
 /**
  * Look for function declarations amongst the tokens.
@@ -62,7 +43,7 @@ const functionDeclarations = (tokens: Array<IBlockStatement | IToken>): ILoopRet
     let { end } = token;
     const expression = false;
     let generator = false;
-    let id;
+    let id = null;
     const params = [];
 
     // Set the async status if appropriate.
@@ -79,7 +60,7 @@ const functionDeclarations = (tokens: Array<IBlockStatement | IToken>): ILoopRet
 
     // Look for a function name.
     if (chk.isIdentifier(_peek(tokens).type)) {
-      id = convertIdentifier(_first(tokens));
+      id = transformIdentifier(_first(tokens));
     }
 
     // Check for the presence of parameters.
@@ -89,7 +70,11 @@ const functionDeclarations = (tokens: Array<IBlockStatement | IToken>): ILoopRet
 
       // Add everything within the parens to the parameters list.
       while (!chk.isParensClose(_peek(tokens).type)) {
-        params.push(_first(tokens));
+        const param = _first(tokens);
+
+        if (chk.isIdentifier(param.type)) {
+          params.push(transformIdentifier(param));
+        }
       }
 
       // Get rid of the closing parenthesis.
@@ -123,8 +108,8 @@ const functionDeclarations = (tokens: Array<IBlockStatement | IToken>): ILoopRet
       id,
       start: token.start,
       end,
-      body,
       params,
+      body,
       async,
       expression,
       generator,
