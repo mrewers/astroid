@@ -2,6 +2,7 @@ import { h, Fragment } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import type { FunctionalComponent } from 'preact';
 
+import isObject from '../../../fp/check';
 import BranchNode from '../BranchNode/BranchNode'; // eslint-disable-line import/no-cycle
 import style from './Leaf.module.scss';
 import type { IAstBody } from '../../../parser/analyzer/analyzeSyntax';
@@ -13,8 +14,12 @@ interface ILeafProps {
 
 type TLeaf = IAstBody | boolean | number | string | null;
 
-const isObject = (val: unknown): boolean => val instanceof Object;
-
+/**
+ * Returns a span displaying the given key-value pair.
+ * Used for rendering out primitive leaf values.
+ * @param key - The property key name.
+ * @param val - The property value.
+ */
 const oneLiner = (key: string, val: string): h.JSX.Element => <span>{`${key}: ${val}`}</span>;
 
 /**
@@ -27,6 +32,10 @@ const oneLiner = (key: string, val: string): h.JSX.Element => <span>{`${key}: ${
 const Leaf: FunctionalComponent<ILeafProps> = ({ label, token }) => {
   const [collapsed, setCollapsed] = useState(true);
   const [keys, setKeys] = useState([] as string[]);
+
+  // Only way I could find to get around the "no index signature with
+  // a parameter type of string" error when calling parseLeaf with the token.
+  const tokenCopy = { ...token } as Record<string, TLeaf>;
 
   // Pull the properties off of the leaf data object
   // so that we can iterate over them.
@@ -75,7 +84,7 @@ const Leaf: FunctionalComponent<ILeafProps> = ({ label, token }) => {
       {!collapsed && (
         <ul>
           {keys.map(key => (
-            <li key={key}>{parseLeaf(token[key], key)}</li>
+            <li key={key}>{parseLeaf(tokenCopy[key], key)}</li>
           ))}
         </ul>
       )}
