@@ -21,9 +21,22 @@ interface IBranchNodeProps {
 const BranchNode: FunctionalComponent<IBranchNodeProps> = ({ label, leaves }) => {
   const [collapsed, setCollapsed] = useState(true);
 
+  const showBefore = (): string => {
+    if (leaves.length === 0) {
+      return '';
+    }
+
+    return collapsed ? style.closed : style.open;
+  };
+
   return (
-    <div>
-      <button className={style.button} type="button" onClick={(): void => setCollapsed(!collapsed)}>
+    <div className={showBefore()}>
+      <button
+        className={style.button}
+        disabled={leaves.length === 0}
+        type="button"
+        onClick={(): void => setCollapsed(!collapsed)}
+      >
         {label}
       </button>
       {!collapsed && (
@@ -36,6 +49,7 @@ const BranchNode: FunctionalComponent<IBranchNodeProps> = ({ label, leaves }) =>
             ))}
         </ul>
       )}
+      {leaves.length === 0 && <span>: []</span>}
     </div>
   );
 };

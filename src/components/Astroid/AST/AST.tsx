@@ -6,6 +6,7 @@ import BranchNode from '../BranchNode/BranchNode';
 import parse from '../../../parser/parser';
 import type { IAstBody } from '../../../parser/analyzer/analyzeSyntax';
 import type { IToken } from '../../../parser/lexer/tokenize';
+import style from './AST.module.scss';
 
 interface IAstProps {
   readonly raw: string;
@@ -37,7 +38,7 @@ const Ast: FunctionalComponent<IAstProps> = ({ raw }) => {
   }
 
   return (
-    <div>
+    <div className={style.container}>
       {ast.comments.length > 0 && <BranchNode label="comments" leaves={ast.comments} />}
       {ast.body.length > 0 && <BranchNode label="body" leaves={ast.body} />}
     </div>

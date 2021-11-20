@@ -62,7 +62,7 @@ const Leaf: FunctionalComponent<ILeafProps> = ({ label, token }) => {
 
   return (
     <Fragment>
-      <span>
+      <span className={collapsed ? style.closed : style.open}>
         {typeof label !== 'undefined' ? `${label}: ` : ''}
         <button
           className={style.button}
