@@ -45,7 +45,11 @@ const Leaf: FunctionalComponent<ILeafProps> = ({ label, token }) => {
     }
   }, [token]);
 
-  // Populate the leaf with the appropriate content depending on the contents of the leaf.
+  /**
+   * Populate the leaf with the appropriate content depending on the contents of the leaf.
+   * @param leaf - The node leaf to be rendered.
+   * @param key - The name of the property in question.
+   */
   const parseLeaf = (leaf: TLeaf, key: string): h.JSX.Element => {
     // The the leaf if a primitive value we render it out as is.
     if (leaf === null) {
