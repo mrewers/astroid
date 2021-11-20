@@ -1,5 +1,8 @@
 import chk from '../utils/checkToken';
 import { first, peek } from '../../fp/fp';
+import functionDeclarations from './functions';
+import variableDeclarations from './variables';
+import recurse from '../utils/recursion';
 import type { IFunctionDeclaration } from './functions';
 import type { IToken } from '../lexer/tokenize';
 import type { ILoopReturn } from './analyzeSyntax';
@@ -23,7 +26,7 @@ const blockStatements = (tokens: IToken[]): ILoopReturn => {
   const token = _first(tokens);
 
   if (chk.isBlockOpen(token.type)) {
-    const body = [];
+    let body = [];
     let { end } = token;
 
     // Populate the block body with it's tokens.
@@ -33,6 +36,16 @@ const blockStatements = (tokens: IToken[]): ILoopReturn => {
 
       // Set the block end to the position of the closing brace.
       end = _peek(tokens).end;
+    }
+
+    // Look for function declarations in the body of the block statement.
+    if (body.length > 0) {
+      body = recurse(body, functionDeclarations);
+    }
+
+    // Look for variable declarations in the body of the block statement.
+    if (body.length > 0) {
+      body = recurse(body, variableDeclarations);
     }
 
     // Discard the closing bracket.

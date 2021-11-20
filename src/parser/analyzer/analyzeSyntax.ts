@@ -1,6 +1,7 @@
 import blockStatements from './blocks';
 import chk from '../utils/checkToken';
 import functionDeclarations from './functions';
+import recurse from '../utils/recursion';
 import variableDeclarations from './variables';
 import type { IBlockStatement } from './blocks';
 import type { IFunctionDeclaration } from './functions';
@@ -12,22 +13,6 @@ interface ILoopReturn {
   readonly value: IAstBody;
   readonly remaining: IAstBody[];
 }
-
-const recurse = (
-  arr: IAstBody[],
-  func: (a: IAstBody[]) => { value: IAstBody; remaining: IAstBody[] },
-  final: IAstBody[] = []
-): IAstBody[] => {
-  if (arr.length) {
-    const { value, remaining } = func(arr);
-
-    final.push(value);
-
-    recurse(remaining, func, final);
-  }
-
-  return final;
-};
 
 /**
  * Loops through a list of tokens interpreting their syntactical meaning.
