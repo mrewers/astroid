@@ -1,6 +1,6 @@
 import { calculateChenScore, calculateChenFromData } from '../chen';
 import { getDataFromShorthand } from '../pocketCards';
-import hands from './mocks';
+import hands from '../__mockdata__/mocks';
 import type { IPocketCardsData } from '../pocketCards';
 
 describe('The Chen Formula', () => {

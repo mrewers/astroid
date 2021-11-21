@@ -10,7 +10,7 @@ import {
   hasTrips,
   hasTwoPair,
 } from '../hands';
-import hands from './mocks';
+import hands from '../__mockdata__/mocks';
 
 describe('Hand checks', () => {
   it('identifies royal flushes', () => {

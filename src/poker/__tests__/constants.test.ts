@@ -1,5 +1,5 @@
 import * as C from '../constants';
-import hands from './mocks';
+import hands from '../__mockdata__/mocks';
 
 describe('Poker constants', () => {
   it('has the right number of ranks', () => {
