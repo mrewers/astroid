@@ -2,7 +2,7 @@
   "name": "@mrewers/fp",
   "version": "0.0.1",
   "description": "TypeScript helper functions to facilitate programming in a functional way.",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

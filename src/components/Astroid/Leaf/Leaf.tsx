@@ -1,11 +1,11 @@
 import { h, Fragment } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import type { FunctionalComponent } from 'preact';
+import isObject from '@mrewers/fp/isObject';
+import type { IAstBody } from '@mrewers/parser/analyzer/analyzeSyntax';
 
-import isObject from '../../../fp/isObject';
 import BranchNode from '../BranchNode/BranchNode'; // eslint-disable-line import/no-cycle
 import style from './Leaf.module.scss';
-import type { IAstBody } from '../../../parser/analyzer/analyzeSyntax';
 
 interface ILeafProps {
   readonly label?: string;

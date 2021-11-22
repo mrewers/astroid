@@ -1,5 +1,6 @@
+import { first, peek } from '@mrewers/fp';
+
 import chk from '../utils/checkToken';
-import { first, peek } from '../../fp/fp';
 import functionDeclarations from './functions';
 import variableDeclarations from './variables';
 import recurse from '../utils/recursion';

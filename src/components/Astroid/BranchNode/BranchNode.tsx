@@ -1,10 +1,10 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import type { FunctionalComponent } from 'preact';
+import type { IAstBody } from '@mrewers/parser/analyzer/analyzeSyntax';
 
 import Leaf from '../Leaf/Leaf'; // eslint-disable-line import/no-cycle
 import style from './BranchNode.module.scss';
-import type { IAstBody } from '../../../parser/analyzer/analyzeSyntax';
 
 interface IBranchNodeProps {
   readonly label: string;

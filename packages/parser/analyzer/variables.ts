@@ -1,4 +1,5 @@
-import { first, peek } from '../../fp/fp';
+import { first, peek } from '@mrewers/fp';
+
 import chk from '../utils/checkToken';
 import { transformIdentifier } from '../utils/transforms';
 import type { IIdentifier } from '../utils/transforms';

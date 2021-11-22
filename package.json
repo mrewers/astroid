@@ -9,7 +9,13 @@
     "prepare": "husky install .config/husky",
     "test": "jest ./"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
+    "@mrewers/fp": "workspace:*",
+    "@mrewers/parser": "workspace:*",
+    "@mrewers/poker": "workspace:*",
     "@snowpack/plugin-sass": "^1.4.0",
     "preact": "^10.5.15",
     "preact-router": "^3.2.1"

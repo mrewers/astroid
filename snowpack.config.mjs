@@ -14,6 +14,7 @@ const snowpackConfig = {
     '@snowpack/plugin-sass',
     '@snowpack/plugin-typescript'
   ],
+  workspaceRoot: '/'
 };
 
 export default snowpackConfig;

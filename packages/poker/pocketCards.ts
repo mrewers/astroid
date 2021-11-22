@@ -1,5 +1,6 @@
+import { first, peek } from '@mrewers/fp';
+
 import { cardFromRank, getCardGap, RANKS } from './constants';
-import { first, peek } from '../fp/fp';
 import type { ICard } from './constants';
 
 interface IPocketCards {

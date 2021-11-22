@@ -1,6 +1,7 @@
+import { first, peek } from '@mrewers/fp';
+
 import chk from '../utils/checkToken';
 import { transformIdentifier } from '../utils/transforms';
-import { first, peek } from '../../fp/fp';
 import type { IBlockStatement } from './blocks';
 import type { IToken } from '../lexer/tokenize';
 import type { ILoopReturn } from './analyzeSyntax';

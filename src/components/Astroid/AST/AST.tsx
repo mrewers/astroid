@@ -1,11 +1,11 @@
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import type { FunctionalComponent } from 'preact';
+import parse from '@mrewers/parser';
+import type { IAstBody } from '@mrewers/parser/analyzer/analyzeSyntax';
+import type { IToken } from '@mrewers/parser/lexer/tokenize';
 
 import BranchNode from '../BranchNode/BranchNode';
-import parse from '../../../parser/parser';
-import type { IAstBody } from '../../../parser/analyzer/analyzeSyntax';
-import type { IToken } from '../../../parser/lexer/tokenize';
 import style from './AST.module.scss';
 
 interface IAstProps {

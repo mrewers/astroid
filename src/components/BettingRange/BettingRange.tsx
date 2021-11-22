@@ -1,8 +1,8 @@
 import { h } from 'preact';
 import type { FunctionalComponent } from 'preact';
+import { pocketCardsMatrix } from '@mrewers/poker/pocketCards';
 
 import RangeItem from './RangeItem/RangeItem';
-import { pocketCardsMatrix } from '../../poker/pocketCards';
 import style from './BettingRange.module.scss';
 
 const BettingRange: FunctionalComponent = () => {
