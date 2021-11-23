@@ -1,5 +1,5 @@
-ul {
-  font-family: monospace;
+.leaves {
+  font-family: var(--fontFamilyCode);
   font-size: 0.875rem;
   list-style: none;
   margin-left: 0.5rem;
@@ -9,7 +9,7 @@ ul {
 .button {
   background: none;
   border: none;
-  font-family: monospace;
+  font-family: var(--fontFamilyCode);
 
   &:disabled {
     color: black;
@@ -19,22 +19,24 @@ ul {
 .closed {
   &::before {
     content: '+ ';
-    color: green;
-    font-family: monospace;
+    color: var(--green);
+    font-family: var(--fontFamilyCode);
+    font-weight: bold;
     margin-left: -1rem;
   }
 
   &::after {
     content: '[...]';
     color: grey;
-    font-family: monospace;
+    font-family: var(--fontFamilyCode);
     margin-left: 0.5rem;
   }
 }
 
 .open::before {
   content: '- ';
-  color: red;
-  font-family: monospace;
+  color: var(--red);
+  font-family: var(--fontFamilyCode);
+  font-weight: bold;
   margin-left: -1rem;
 }

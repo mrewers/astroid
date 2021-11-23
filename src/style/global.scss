@@ -1,0 +1,72 @@
+@import './colors.scss';
+@import './normalize.scss';
+@import './typography.scss';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @include font-base;
+  color: var(--black);
+  line-height: 1.4;
+  margin: 0;
+}
+
+main {
+  margin: 2rem 1rem;
+}
+
+a {
+  color: var(--primaryDark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1 {
+  @include heading-style;
+  font-size: var(--fontSizeXLarge);
+}
+
+h2 {
+  @include heading-style;
+  font-size: var(--fontSizeLarge);
+}
+
+h3 {
+  @include secondary-heading-style;
+  font-size: var(--fontSizeMediumLarge);
+}
+
+h4 {
+  @include secondary-heading-style;
+  font-size: var(--fontSizeMedium);
+}
+
+h5 {
+  @include secondary-heading-style;
+  font-size: var(--fontSizeMediumSmall);
+}
+
+h6 {
+  @include secondary-heading-style;
+  font-size: var(--fontSizeNormal);
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--fontFamilyCode);
+  font-size: 1rem;
+}
+
+input {
+  font-family: var(--fontFamilyBase);
+  letter-spacing: 0.75px;
+}

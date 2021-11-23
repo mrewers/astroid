@@ -3,7 +3,7 @@ import { h, render } from 'preact';
 import 'preact/devtools';
 import App from './components/App';
 
-import './index.css';
+import './style/global.scss';
 
 const root = document.getElementById('astroid');
 

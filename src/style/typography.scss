@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&family=Source+Code+Pro&display=swap');
+
+:root {
+  // Font families
+  --fontFamilyBase: 'Rubik', sans-serif;
+  --fontFamilyCode: 'Source Code Pro', Consolas, monospace;
+  --fontFamilyHeadings: 'Rubik', sans-serif;
+  --fontFamilyHeadingsSecondary: 'Rubik', sans-serif;
+
+  // Font sizes
+  --baseFontSize: 16px;
+  --typeScale: 1.25;
+
+  // Type scale calculations
+  --fontSizeSmall: calc(var(--baseFontSize) / var(--typeScale));
+  --fontSizeNormal: var(--baseFontSize);
+  --fontSizeMediumSmall: calc(var(--baseFontSize) * var(--typeScale));
+  --fontSizeMedium: calc(var(--fontSizeMediumSmall) * var(--typeScale));
+  --fontSizeMediumLarge: calc(var(--fontSizeMedium) * var(--typeScale));
+  --fontSizeLarge: calc(var(--fontSizeMediumLarge) * var(--typeScale));
+  --fontSizeXLarge: calc(var(--fontSizeLarge) * var(--typeScale));
+}
+
+// Font mixins
+@mixin font-base {
+  font-family: var(--fontFamilyBase);
+  font-size: var(--baseFontSize);
+  font-weight: 400;
+}
+
+@mixin heading-style {
+  font-family: var(--fontFamilyHeadings);
+  font-weight: 500;
+}
+
+@mixin secondary-heading-style {
+  font-family: var(--fontFamilyHeadings);
+  font-weight: 400;
+}

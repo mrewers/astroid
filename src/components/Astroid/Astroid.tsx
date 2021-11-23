@@ -20,11 +20,15 @@ const Astroid: FunctionalComponent = () => {
 
   return (
     <div className={style.panes}>
-      <div>
+      <div className={style.pane}>
         <h2 className={style.title}>Input</h2>
-        <textarea value={input} onBlur={(e: Event): void => handleInput(e)} />
+        <textarea
+          className={style.input}
+          value={input}
+          onBlur={(e: Event): void => handleInput(e)}
+        />
       </div>
-      <div>
+      <div className={style.pane}>
         <h2 className={style.title}>AST</h2>
         <Ast raw={input} />
       </div>

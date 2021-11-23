@@ -11,8 +11,8 @@ const App: FunctionalComponent = () => (
   <div>
     <header>
       <h1 className={style.title}>ASTroid</h1>
+      <Nav />
     </header>
-    <Nav />
     <main>
       <Router>
         <Astroid path="/" />

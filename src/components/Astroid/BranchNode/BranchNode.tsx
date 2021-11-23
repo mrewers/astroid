@@ -40,7 +40,7 @@ const BranchNode: FunctionalComponent<IBranchNodeProps> = ({ label, leaves }) =>
         {label}
       </button>
       {!collapsed && (
-        <ul>
+        <ul className={style.leaves}>
           {leaves.length > 0 &&
             leaves.map(leaf => (
               <li key={leaf.start}>

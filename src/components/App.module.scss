@@ -1,7 +1,20 @@
+body {
+  background-color: var(--blue);
+}
+
+header {
+  align-items: baseline;
+  background-color: var(--violet);
+  border-bottom: 5px solid var(--green);
+  display: flex;
+  justify-content: space-between;
+}
+
 main {
-  height: calc(100vh - 180px);
+  min-height: calc(100vh - (105px + 4rem));
 }
 
 .title {
+  color: var(--white);
   padding: 1rem;
 }

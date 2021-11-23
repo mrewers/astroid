@@ -86,7 +86,7 @@ const Leaf: FunctionalComponent<ILeafProps> = ({ label, token }) => {
         </button>
       </span>
       {!collapsed && (
-        <ul>
+        <ul className={style.list}>
           {keys.map(key => (
             <li key={key}>{parseLeaf(tokenCopy[key], key)}</li>
           ))}

@@ -1,15 +1,23 @@
-textarea {
+.input {
+  font-family: var(--fontFamilyCode);
+  height: calc(100% - 4.5rem);
+  padding: 1rem;
   width: 100%;
-  height: 100%;
+}
+
+.pane {
+  background-color: var(--white);
+  border-radius: 1rem;
   padding: 1rem;
 }
 
 .panes {
   height: 100%;
-  margin: 1rem;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(2, 50%);
+  grid-template-columns: repeat(2, calc(50% - 0.5rem));
+  margin: 1rem;
+  min-height: calc(100vh - (105px + 4rem));
 }
 
 .title {

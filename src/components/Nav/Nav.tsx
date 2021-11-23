@@ -4,7 +4,7 @@ import type { FunctionalComponent } from 'preact';
 import style from './Nav.module.scss';
 
 const Nav: FunctionalComponent = () => (
-  <nav>
+  <nav className={style.container}>
     <ul className={style.list}>
       <li>
         <a href="/">Home</a>
