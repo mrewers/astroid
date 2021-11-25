@@ -2,6 +2,10 @@
   margin: 0 1rem;
 }
 
+.active {
+  border-bottom: 2px solid var(--white);
+}
+
 .list {
   display: flex;
   margin: 0 1rem;

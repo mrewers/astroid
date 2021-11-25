@@ -1,4 +1,5 @@
 import { h } from 'preact';
+import { Link } from 'preact-router/match';
 import type { FunctionalComponent } from 'preact';
 
 import style from './Nav.module.scss';
@@ -7,10 +8,14 @@ const Nav: FunctionalComponent = () => (
   <nav className={style.container}>
     <ul className={style.list}>
       <li>
-        <a href="/">Home</a>
+        <Link activeClassName={style.active} href="/">
+          Home
+        </Link>
       </li>
       <li>
-        <a href="/poker">Poker</a>
+        <Link activeClassName={style.active} href="/poker">
+          Poker
+        </Link>
       </li>
     </ul>
   </nav>
