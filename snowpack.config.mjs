@@ -14,6 +14,13 @@ const snowpackConfig = {
     '@snowpack/plugin-sass',
     '@snowpack/plugin-typescript'
   ],
+  routes: [
+    {
+      dest: '/index.html',
+      match: 'routes',
+      src: '.*',
+    },
+  ],
   workspaceRoot: '/'
 };
 
