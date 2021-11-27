@@ -17,4 +17,5 @@ main {
 .title {
   color: var(--white);
   padding: 1rem;
+  filter: drop-shadow(3px 3px 0 var(--blue));
 }

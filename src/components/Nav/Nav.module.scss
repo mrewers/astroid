@@ -17,6 +17,13 @@
     > a {
       color: var(--white);
       font-weight: normal;
+      padding: 0.2rem 0.5rem;
+
+      &:hover {
+        background-color: var(--green);
+        border-radius: 3px;
+        color: var(--violet);
+      }
     }
 
     &:first-of-type {
