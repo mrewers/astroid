@@ -42,10 +42,11 @@ const reTypeFunctionExpression = (token: IToken): IToken => {
  * @param tokens - A list of tokenized code elements.
  */
 const variableDeclarations = (tokens: IToken[]): ILoopReturn => {
-  const token = _first(tokens);
+  const token = _first(tokens) as IToken;
 
   if (chk.isVarDeclaration(token)) {
     const declarations = [] as IVariableDeclarator[];
+    const kind = token.value;
     let { end } = token;
     let id;
 
@@ -76,6 +77,7 @@ const variableDeclarations = (tokens: IToken[]): ILoopReturn => {
       start: token.start,
       end,
       declarations,
+      kind,
     };
 
     return { value: declaration, remaining: tokens };
