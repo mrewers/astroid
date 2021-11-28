@@ -28,15 +28,11 @@ const blockStatements = (tokens: IToken[]): ILoopReturn => {
 
   if (chk.isBlockOpen(token.type)) {
     let body = [];
-    let { end } = token;
 
     // Populate the block body with it's tokens.
     // We do so recursively to account for nested blocks.
     while (!chk.isBlockClose(_peek(tokens).type)) {
       body.push(blockStatements(tokens).value);
-
-      // Set the block end to the position of the closing brace.
-      end = _peek(tokens).end;
     }
 
     // Look for function declarations in the body of the block statement.
@@ -50,12 +46,12 @@ const blockStatements = (tokens: IToken[]): ILoopReturn => {
     }
 
     // Discard the closing bracket.
-    first(tokens);
+    const closing = _first(tokens);
 
     const statement = {
       type: 'BlockStatement',
       start: token.start,
-      end,
+      end: closing.end,
       body,
     };
 
