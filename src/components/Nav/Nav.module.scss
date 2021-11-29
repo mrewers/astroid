@@ -1,5 +1,5 @@
 .container {
-  margin: 0 1rem;
+  padding: 0 1rem;
 }
 
 .active {
@@ -8,7 +8,6 @@
 
 .list {
   display: flex;
-  margin: 0 1rem;
   list-style: none;
 
   > li {
@@ -28,6 +27,10 @@
 
     &:first-of-type {
       margin-left: 0;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
     }
   }
 }

@@ -1,6 +1,9 @@
 .container {
+  align-items: center;
   background-color: var(--white);
-  border-radius: 5px;
+  border-radius: 0.5rem;
+  display: flex;
+  margin: 1rem;
   min-height: calc(100vh - (105px + 4rem));
   padding: 1rem;
 }

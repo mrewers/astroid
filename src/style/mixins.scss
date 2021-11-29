@@ -1,0 +1,21 @@
+@mixin collapsible-closed-before {
+  content: '+ ';
+  color: var(--green);
+  font-family: var(--fontFamilyCode);
+  font-weight: bold;
+  margin-left: -1rem;
+}
+
+@mixin collapsible-closed-after {
+  color: var(--greyDark);
+  font-family: var(--fontFamilyCode);
+  margin-left: 0.5rem;
+}
+
+@mixin collapsible-open-before {
+  content: '- ';
+  color: var(--red);
+  font-family: var(--fontFamilyCode);
+  font-weight: bold;
+  margin-left: -1rem;
+}

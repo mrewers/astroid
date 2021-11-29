@@ -1,3 +1,5 @@
+@import '../../../style/mixins.scss';
+
 .leaves {
   font-family: var(--fontFamilyCode);
   font-size: 0.875rem;
@@ -18,25 +20,15 @@
 
 .closed {
   &::before {
-    content: '+ ';
-    color: var(--green);
-    font-family: var(--fontFamilyCode);
-    font-weight: bold;
-    margin-left: -1rem;
+    @include collapsible-closed-before;
   }
 
   &::after {
+    @include collapsible-closed-after;
     content: '[...]';
-    color: grey;
-    font-family: var(--fontFamilyCode);
-    margin-left: 0.5rem;
   }
 }
 
 .open::before {
-  content: '- ';
-  color: var(--red);
-  font-family: var(--fontFamilyCode);
-  font-weight: bold;
-  margin-left: -1rem;
+  @include collapsible-open-before;
 }
