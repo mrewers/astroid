@@ -1,14 +1,23 @@
+// Import arrowFunctions from './arrowFunctions';
 import blockStatements from './blocks';
 import chk from '../utils/checkToken';
+import expressions from './expressions';
 import functionDeclarations from './functions';
 import recurse from '../utils/recursion';
 import variableDeclarations from './variables';
 import type { IBlockStatement } from './blocks';
+import type { IExpressionStatement } from './expressions';
 import type { IFunctionDeclaration } from './functions';
 import type { IToken } from '../lexer/tokenize';
 import type { IParsed } from '../parser';
+import type { IVariableDeclaration } from './variables';
 
-type IAstBody = IBlockStatement | IFunctionDeclaration | IToken;
+type IAstBody =
+  | IBlockStatement
+  | IExpressionStatement
+  | IFunctionDeclaration
+  | IToken
+  | IVariableDeclaration;
 interface ILoopReturn {
   readonly value: IAstBody;
   readonly remaining: IAstBody[];
@@ -42,9 +51,18 @@ const analyzeSyntax = (tokens: IToken[]): IParsed => {
     body = recurse(body, functionDeclarations);
   }
 
+  // If (body.length > 0) {
+  //   body = recurse(body, arrowFunctions);
+  // }
+
   // Look for variable declarations.
   if (body.length > 0) {
     body = recurse(body, variableDeclarations);
+  }
+
+  // Look for expression statements.
+  if (body.length > 0) {
+    body = recurse(body, expressions);
   }
 
   return {

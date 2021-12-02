@@ -1,6 +1,7 @@
 import { first, peek } from '@mrewers/fp';
 
 import chk from '../utils/checkToken';
+import expressions from './expressions';
 import functionDeclarations from './functions';
 import variableDeclarations from './variables';
 import recurse from '../utils/recursion';
@@ -43,6 +44,11 @@ const blockStatements = (tokens: IToken[]): ILoopReturn => {
     // Look for variable declarations in the body of the block statement.
     if (body.length > 0) {
       body = recurse(body, variableDeclarations);
+    }
+
+    // Look for expression statements.
+    if (body.length > 0) {
+      body = recurse(body, expressions);
     }
 
     // Discard the closing bracket.
