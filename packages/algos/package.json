@@ -1,0 +1,11 @@
+{
+  "name": "@mrewers/algos",
+  "version": "0.0.1",
+  "description": "Functions to execute various popular algorithms",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marek Rewers",
+  "license": "MIT"
+}

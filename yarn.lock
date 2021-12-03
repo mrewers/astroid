@@ -1810,6 +1810,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mrewers/algos@workspace:^, @mrewers/algos@workspace:packages/algos":
+  version: 0.0.0-use.local
+  resolution: "@mrewers/algos@workspace:packages/algos"
+  languageName: unknown
+  linkType: soft
+
 "@mrewers/astroid@workspace:.":
   version: 0.0.0-use.local
   resolution: "@mrewers/astroid@workspace:."
@@ -1821,9 +1827,10 @@ __metadata:
     "@cryptopapers/commitlint-config": ^1.0.0
     "@cryptopapers/eslint-config": ^2.1.0
     "@cryptopapers/prettier-config": ^1.1.0
-    "@mrewers/fp": "workspace:^"
+    "@mrewers/algos": "workspace:^"
+    "@mrewers/fp": "workspace:*"
     "@mrewers/parser": "workspace:*"
-    "@mrewers/poker": "workspace:^"
+    "@mrewers/poker": "workspace:*"
     "@snowpack/plugin-sass": ^1.4.0
     "@snowpack/plugin-typescript": ^1.2.1
     "@types/jest": ^27.0.2
@@ -1862,7 +1869,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mrewers/poker@workspace:^, @mrewers/poker@workspace:packages/poker":
+"@mrewers/poker@workspace:*, @mrewers/poker@workspace:packages/poker":
   version: 0.0.0-use.local
   resolution: "@mrewers/poker@workspace:packages/poker"
   dependencies:

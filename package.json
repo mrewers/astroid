@@ -13,6 +13,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "@mrewers/algos": "workspace:*",
     "@mrewers/fp": "workspace:*",
     "@mrewers/parser": "workspace:*",
     "@mrewers/poker": "workspace:*",
