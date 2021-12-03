@@ -53,6 +53,7 @@ const variableDeclarations = (tokens: IToken[]): ILoopReturn => {
     // Look for a function name.
     if (chk.isIdentifier(_peek(tokens).type)) {
       id = transformIdentifier(_first(tokens));
+      end = id.end;
 
       const declarator = {
         type: 'VariableDeclarator',
@@ -66,10 +67,10 @@ const variableDeclarations = (tokens: IToken[]): ILoopReturn => {
         _first(tokens); // Skip the equals operator.
 
         declarator.init = reTypeFunctionExpression(_first(tokens));
+        end = declarator.init.end;
       }
 
       declarations.push(declarator);
-      end = id.end;
     }
 
     const declaration = {
