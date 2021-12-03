@@ -34,6 +34,13 @@ module.exports = {
             ignorePattern: 'pragma|ignore|prettier-ignore',
           }
         ],
+        'func-names': [
+          'warn',
+          'always',
+          {
+            generators: 'as-needed',
+          },
+        ],
         'import/no-unassigned-import': [
           'error',
           {
