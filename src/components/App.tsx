@@ -2,6 +2,7 @@ import { h } from 'preact';
 import { Router } from 'preact-router';
 import type { FunctionalComponent } from 'preact';
 
+import Algos from './Algos/Algos';
 import Astroid from './Astroid/Astroid';
 import Nav from './Nav/Nav';
 import Poker from './Poker/Poker';
@@ -16,6 +17,7 @@ const App: FunctionalComponent = () => (
     <main>
       <Router>
         <Astroid path="/" />
+        <Algos path="/algos" />
         <Poker path="/poker" />
       </Router>
     </main>

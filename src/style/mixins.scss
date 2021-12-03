@@ -19,3 +19,15 @@
   font-weight: bold;
   margin-left: -1rem;
 }
+
+@mixin container-min-height {
+  min-height: calc(100vh - (105px + 4rem));
+}
+
+@mixin container-primary {
+  @include container-min-height;
+  background-color: var(--white);
+  border-radius: 0.5rem;
+  margin: 1rem;
+  padding: 1rem;
+}

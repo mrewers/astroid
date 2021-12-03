@@ -2,10 +2,4 @@
 
 .container {
   @include container-primary;
-  align-items: center;
-  display: flex;
-}
-
-.range {
-  width: 50%;
 }
