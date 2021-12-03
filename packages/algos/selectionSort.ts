@@ -1,4 +1,18 @@
-const selectionSort = (arr: number[]): number[] => {
+interface ISelectionSortYield {
+  index: number;
+  sorted: number[];
+}
+
+/**
+ * Uses the selection sort algorithm to sort a list
+ * of numbers from the lowest to highest value.
+ * As an iterator, the function yields the partially
+ * sorted values at each step of the sort.
+ * @param arr - A list of numbers to be sorted.
+ */
+const selectionSortIterator = function* (
+  arr: number[]
+): Generator<ISelectionSortYield, void, void> {
   const sorted = [...arr];
 
   for (let i = 0; i < arr.length; i++) {
@@ -16,9 +30,11 @@ const selectionSort = (arr: number[]): number[] => {
 
     // Re-add it to the end of the sorted subarray.
     sorted.splice(i, 0, min);
-  }
 
-  return sorted;
+    yield { index: i, sorted };
+  }
 };
 
-export default selectionSort;
+export type { ISelectionSortYield };
+
+export default selectionSortIterator;
