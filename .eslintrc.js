@@ -47,6 +47,7 @@ module.exports = {
             allow: ['**/*.css', '**/*.sass', '**/*.scss', 'preact/devtools'],
           },
         ],
+        'jsx-a11y/no-onchange': 'off',
         'sort-imports': 'off',
       },
       settings: {
