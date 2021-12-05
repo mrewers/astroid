@@ -23,6 +23,7 @@ const SelectionSort: FunctionalComponent = () => {
     if (done === true) {
       setIsDone(true);
     } else if (value) {
+      // Limit the number of shown iterations to 5 (including the current one).
       const copy = previous.length > 3 ? previous.slice(0, 3) : previous;
 
       setPrevious([values, ...copy]);
@@ -30,7 +31,9 @@ const SelectionSort: FunctionalComponent = () => {
     }
   };
 
+  // Reset to the original state.
   const reset = (): void => {
+    setIsDone(false);
     setIterator(selectionSort(arr));
     setPrevious([]);
     setValues({ index: -1, sorted: arr });
