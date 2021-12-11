@@ -1,0 +1,61 @@
+@import '../../style/mixins.scss';
+
+.button {
+  @include button-reset;
+
+  border: 3px solid transparent;
+  border-radius: 5px;
+  box-shadow: 2px 1px 3px 2px rgba(224, 224, 224, 0.5);
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+  max-width: 180px;
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.default {
+  background-color: var(--grey);
+
+  &.outline {
+    background-color: transparent;
+    border: 3px solid var(--black);
+  }
+}
+
+.danger {
+  background-color: var(--red);
+  color: var(--black);
+
+  &.outline {
+    background-color: transparent;
+    color: var(--black);
+    border: 3px solid var(--red);
+  }
+}
+
+.primary {
+  background-color: var(--violet);
+  color: var(--white);
+
+  &.outline {
+    background-color: transparent;
+    color: var(--violet);
+    border: 3px solid var(--violet);
+  }
+}
+
+.secondary {
+  background-color: var(--green);
+  color: var(--black);
+
+  &.outline {
+    background-color: transparent;
+    color: var(--green);
+    border: 3px solid var(--green);
+  }
+}
