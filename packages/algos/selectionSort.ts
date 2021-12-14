@@ -1,5 +1,11 @@
+type TPrevious = Array<{
+  index: number;
+  values: number[];
+}>;
+
 interface ISelectionSortYield {
   index: number;
+  previous: TPrevious;
   sorted: number[];
 }
 
@@ -14,8 +20,12 @@ const selectionSortIterator = function* (
   arr: number[]
 ): Generator<ISelectionSortYield, void, void> {
   const sorted = [...arr];
+  const previous = [];
 
   for (let i = 0; i < arr.length; i++) {
+    // Add the current values to the list of previous values.
+    previous.unshift({ index: i - 1, values: [...sorted] });
+
     // Create a temporary subarray of unsorted elements.
     const remaining = sorted.slice(i);
 
@@ -31,10 +41,10 @@ const selectionSortIterator = function* (
     // Re-add it to the end of the sorted subarray.
     sorted.splice(i, 0, min);
 
-    yield { index: i, sorted };
+    yield { index: i, previous, sorted };
   }
 };
 
-export type { ISelectionSortYield };
+export type { ISelectionSortYield, TPrevious };
 
 export default selectionSortIterator;
