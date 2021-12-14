@@ -6,7 +6,6 @@ import SortedArray from './SortedArray';
 import style from './SelectionSort.module.scss';
 
 interface ISelectionSortProps {
-  previous: ISelectionSortYield[];
   values: ISelectionSortYield;
 }
 
@@ -14,19 +13,23 @@ interface ISelectionSortProps {
  * A JSX component that renders a visualization of the selection sort algorithm.
  * @component
  */
-const SelectionSort: FunctionalComponent<ISelectionSortProps> = ({ previous, values }) => (
-  <div className={style.container}>
-    <SortedArray currentIndex={values.index} numbers={values.sorted} />
-    {previous.map((prev, i) => (
-      <SortedArray
-        key={prev.index}
-        currentIndex={prev.index}
-        inlineStyle={{ opacity: `calc(1 - (0.15 * ${i}) - 0.15)` }}
-        numbers={prev.sorted}
-      />
-    ))}
-  </div>
-);
+const SelectionSort: FunctionalComponent<ISelectionSortProps> = ({ values }) => {
+  const trimmed = values.previous.length > 4 ? values.previous.slice(0, 4) : values.previous;
+
+  return (
+    <div className={style.container}>
+      <SortedArray currentIndex={values.index} numbers={values.sorted} />
+      {trimmed.map((prev, i) => (
+        <SortedArray
+          key={prev.index}
+          currentIndex={prev.index}
+          inlineStyle={{ opacity: `calc(1 - (0.15 * ${i}) - 0.15)` }}
+          numbers={prev.values}
+        />
+      ))}
+    </div>
+  );
+};
 
 SelectionSort.displayName = 'Selection Sort';
 

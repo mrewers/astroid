@@ -1,3 +1,13 @@
+@mixin button-reset {
+  background-color: transparent;
+  border: none;
+  color: unset;
+  font-family: unset;
+  font-size: unset;
+  font-weight: unset;
+  text-align: unset;
+}
+
 @mixin collapsible-closed-before {
   content: '+ ';
   color: var(--green);

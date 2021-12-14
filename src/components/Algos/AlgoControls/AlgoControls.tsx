@@ -11,6 +11,7 @@ interface IAlgoControlsProps {
   handleReset: () => void;
   handleSort: () => void;
   isDone: boolean;
+  isRunning: boolean;
   setAlgo: (val: string) => void;
 }
 
@@ -20,10 +21,11 @@ interface IAlgoControlsProps {
  */
 const AlgoControls: FunctionalComponent<IAlgoControlsProps> = ({
   algo,
-  isDone,
   handleNext,
   handleReset,
   handleSort,
+  isDone,
+  isRunning,
   setAlgo,
 }) => {
   const handleSelection = (e: Event): void => {
@@ -45,20 +47,26 @@ const AlgoControls: FunctionalComponent<IAlgoControlsProps> = ({
       {algo !== '' && (
         <div className={style.controls}>
           <Button
-            disabled={isDone}
+            disabled={isDone || isRunning}
             label="Run Sort"
             type="button"
             variant="secondary"
             onClick={handleSort}
           />
           <Button
-            disabled={isDone}
+            disabled={isDone || isRunning}
             label="Next Step"
             type="button"
             variant="secondary"
             onClick={handleNext}
           />
-          <Button label="Reset" type="button" variant="secondary" onClick={handleReset} />
+          <Button
+            disabled={isRunning}
+            label="Reset"
+            type="button"
+            variant="secondary"
+            onClick={handleReset}
+          />
         </div>
       )}
     </div>

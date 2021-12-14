@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import selectionSort from '@mrewers/algos/selectionSort';
-import type { ISelectionSortYield } from '@mrewers/algos/selectionSort';
+import type { TPrevious } from '@mrewers/algos/selectionSort';
 import type { FunctionalComponent } from 'preact';
 
 import AlgoControls from './AlgoControls/AlgoControls';
@@ -14,12 +14,18 @@ import style from './Algos.module.scss';
  */
 const Algos: FunctionalComponent = () => {
   const [algo, setAlgo] = useState('');
-
   const arr = [29, 484, 1, 29, 92, 34];
+
+  const initialState = {
+    index: -1,
+    previous: [] as TPrevious,
+    sorted: arr,
+  };
+
   const [isDone, setIsDone] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
   const [iterator, setIterator] = useState(selectionSort(arr));
-  const [previous, setPrevious] = useState([] as ISelectionSortYield[]);
-  const [values, setValues] = useState({ index: -1, sorted: arr });
+  const [values, setValues] = useState(initialState);
 
   const handleNext = (): void => {
     const { done, value } = iterator.next();
@@ -27,22 +33,25 @@ const Algos: FunctionalComponent = () => {
     if (done === true) {
       setIsDone(true);
     } else if (value) {
-      // Limit the number of shown iterations to 5 (including the current one).
-      const copy = previous.length > 3 ? previous.slice(0, 3) : previous;
-
-      setPrevious([values, ...copy]);
       setValues(value);
     }
   };
 
   const handleSort = (): void => {
+    let running = true;
+
     const next = (i: number): void => {
-      setTimeout(() => {
+      window.setTimeout(() => {
+        if (i === arr.length) {
+          running = false;
+        }
+
         handleNext();
+        setIsRunning(running);
       }, 1000 * i);
     };
 
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0; i <= arr.length; i++) {
       next(i);
     }
   };
@@ -51,8 +60,7 @@ const Algos: FunctionalComponent = () => {
   const reset = (): void => {
     setIsDone(false);
     setIterator(selectionSort(arr));
-    setPrevious([]);
-    setValues({ index: -1, sorted: arr });
+    setValues(initialState);
   };
 
   return (
@@ -63,10 +71,11 @@ const Algos: FunctionalComponent = () => {
         handleReset={reset}
         handleSort={handleSort}
         isDone={isDone}
+        isRunning={isRunning}
         setAlgo={setAlgo}
       />
       <div className={style.visualization}>
-        {algo === 'selection' && <SelectionSort previous={previous} values={values} />}
+        {algo === 'selection' && <SelectionSort values={values} />}
       </div>
     </div>
   );
