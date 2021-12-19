@@ -1,4 +1,4 @@
-import { RANKS, SUITS, VALUE } from './constants';
+import { RANKS, SUITS, VALUES } from './constants';
 import type { ICard } from './constants';
 
 type IGrouped = Record<string, ICard[]>;
@@ -12,7 +12,7 @@ type IGrouped = Record<string, ICard[]>;
 const groupBy = (
   cards: ICard[],
   property: 'rank' | 'suit' | 'value',
-  list: number[] | string[]
+  list: typeof RANKS | typeof SUITS | typeof VALUES
 ): IGrouped => {
   const group = {} as IGrouped;
 
@@ -41,7 +41,7 @@ const groupBySuit = (cards: ICard[]): IGrouped => groupBy(cards, 'suit', SUITS);
  * Returns the provided cards grouped by their value.
  * @param cards - A list of cards.
  */
-const groupByValue = (cards: ICard[]): IGrouped => groupBy(cards, 'value', VALUE); // eslint-disable-line
+const groupByValue = (cards: ICard[]): IGrouped => groupBy(cards, 'value', VALUES); // eslint-disable-line
 
 /**
  * Returns the provided cards ordered by their value.
@@ -68,7 +68,12 @@ const orderByValue = (cards: ICard[]): ICard[] => {
  * @param list - The list of options for the selected card property.
  * @param op - The comparison operator to use, defaults to === but also accepts >.
  */
-const hasGroupOfLength = (groups: IGrouped, len: number, list: string[], op?: string): number => {
+const hasGroupOfLength = (
+  groups: IGrouped,
+  len: number,
+  list: typeof RANKS | typeof SUITS,
+  op?: string
+): number => {
   let isTrue = 0;
 
   list.forEach(prop => {

@@ -11,9 +11,9 @@ describe('Poker constants', () => {
   });
 
   it('has the right number of values, all between 1 and 13', () => {
-    expect(C.VALUE).toHaveLength(13);
-    expect(Math.max(...C.VALUE)).toStrictEqual(13);
-    expect(Math.min(...C.VALUE)).toStrictEqual(1);
+    expect(C.VALUES).toHaveLength(13);
+    expect(Math.max(...C.VALUES)).toStrictEqual(13);
+    expect(Math.min(...C.VALUES)).toStrictEqual(1);
   });
 
   it('has a full deck', () => {

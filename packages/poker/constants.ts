@@ -4,9 +4,9 @@ interface ICard {
   readonly value: number;
 }
 
-export const RANKS = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
-export const SUITS = ['clubs', 'diamonds', 'hearts', 'spades'];
-export const VALUE = [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+export const RANKS = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'] as const;
+export const SUITS = ['clubs', 'diamonds', 'hearts', 'spades'] as const;
+export const VALUES = [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] as const;
 
 /**
  * Generates a Map in to store the numeric value of each rank.
@@ -15,7 +15,7 @@ export const rankValueMap = (): Map<string, number> => {
   const mapping = [];
 
   for (let i = 0; i < 13; i++) {
-    mapping.push([RANKS[i], VALUE[i]]);
+    mapping.push([RANKS[i], VALUES[i]]);
   }
 
   /* eslint-disable @typescript-eslint/consistent-type-assertions */
