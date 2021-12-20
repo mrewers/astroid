@@ -1,0 +1,30 @@
+/*
+ * Constrains a given element to a fixed aspect ratio.
+ * The ratio to be applied is determined using the style property
+ * on the target element, wherein the --aspect-ratio variable should be set.
+ *
+ * The ratio is expressed as height over width. So, for instance if seeking
+ * to achieve the common 16:9 ratio for videos, --aspect-ratio should be set
+ * to 9/16.
+ *
+ * Adapted from:
+ *  - https://css-tricks.com/aspect-ratio-boxes/
+ *  - https://ratiobuddy.com/
+ */
+@supports (--custom: property) {
+  [style*='--aspect-ratio'] {
+    position: relative;
+    content: '';
+    display: block;
+    padding-bottom: calc(100% * (var(--aspect-ratio)));
+    width: 100%;
+  }
+
+  [style*='--aspect-ratio'] > :first-child {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+}
