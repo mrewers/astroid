@@ -68,10 +68,16 @@ describe('Card helpers', () => {
     expect(C.lowerThanX(controls.lower[2], 11)).toStrictEqual(true);
   });
 
-  it('rank extrapolates the numeric value equivalent for a card rank', () => {
-    expect(C.getRankValue('A')).toStrictEqual(13);
-    expect(C.getRankValue('8')).toStrictEqual(7);
-    expect(C.getRankValue('2')).toStrictEqual(1);
+  it('extrapolates the numeric value equivalent for a card rank', () => {
+    expect(C.getValueOfRank('A')).toStrictEqual(13);
+    expect(C.getValueOfRank('8')).toStrictEqual(7);
+    expect(C.getValueOfRank('2')).toStrictEqual(1);
+  });
+
+  it("extrapolates a card's rank from it's numeric value", () => {
+    expect(C.getRankFromValue(13)).toStrictEqual('A');
+    expect(C.getRankFromValue(7)).toStrictEqual('8');
+    expect(C.getRankFromValue(1)).toStrictEqual('2');
   });
 
   it('constructs a card object from a rank', () => {

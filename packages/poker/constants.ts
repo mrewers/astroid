@@ -28,10 +28,27 @@ export const rankValueMap = (): Map<string, number> => {
  * Retrieves the value of a card based on it's rank.
  * @param rank - The rank of a given card.
  */
-export const getRankValue = (rank: string): number | undefined => {
+export const getValueOfRank = (rank: string): number | undefined => {
   const mapping = rankValueMap();
 
   return mapping.get(rank);
+};
+
+/**
+ * Retrieves the rank of a card based on it's value.
+ * @param val - The value of a given card.
+ */
+export const getRankFromValue = (val: number): string | null => {
+  const mapping = rankValueMap();
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [key, value] of mapping.entries()) {
+    if (value === val) {
+      return key;
+    }
+  }
+
+  return null;
 };
 
 /**
@@ -39,7 +56,7 @@ export const getRankValue = (rank: string): number | undefined => {
  * @param c - The card's rank.
  */
 export const cardFromRank = (c: string): ICard => {
-  return { rank: c, value: getRankValue(c) ?? 0 };
+  return { rank: c, value: getValueOfRank(c) ?? 0 };
 };
 
 /**
