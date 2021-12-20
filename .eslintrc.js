@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['@cryptopapers/eslint-config'],
-  ignorePatterns: ['**/dist/', 'docs/'],
+  ignorePatterns: ['**/dist/', 'build/', 'docs/'],
   overrides: [
     {
       extends: [
