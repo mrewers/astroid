@@ -1,5 +1,5 @@
-import { RANKS, SUITS, VALUES } from './constants';
-import type { ICard } from './constants';
+import { RANKS, SUITS } from './constants';
+import type { ICard, VALUES } from './constants';
 
 type IGrouped = Record<string, ICard[]>;
 
@@ -38,10 +38,11 @@ const groupByRank = (cards: ICard[]): IGrouped => groupBy(cards, 'rank', RANKS);
 const groupBySuit = (cards: ICard[]): IGrouped => groupBy(cards, 'suit', SUITS);
 
 /**
+ * NOTE: This function is currently unused but available for activation should it be needed.
  * Returns the provided cards grouped by their value.
  * @param cards - A list of cards.
  */
-const groupByValue = (cards: ICard[]): IGrouped => groupBy(cards, 'value', VALUES); // eslint-disable-line
+// const groupByValue = (cards: ICard[]): IGrouped => groupBy(cards, 'value', VALUES);
 
 /**
  * Returns the provided cards ordered by their value.
