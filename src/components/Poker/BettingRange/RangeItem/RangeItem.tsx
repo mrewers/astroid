@@ -10,6 +10,12 @@ interface IRangeItemProps {
   readonly item: string;
 }
 
+/**
+ * A JSX component that renders an individual card pairing within the betting range grid.
+ * @component
+ * @param props
+ * @param props.item - A representation of any two-card combination.
+ */
 const RangeItem: FunctionalComponent<IRangeItemProps> = ({ item }) => {
   const [chen, setChen] = useState(0);
 

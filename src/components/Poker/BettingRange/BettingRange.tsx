@@ -5,6 +5,10 @@ import { pocketCardsMatrix } from '@mrewers/poker/pocketCards';
 import RangeItem from './RangeItem/RangeItem';
 import style from './BettingRange.module.scss';
 
+/**
+ * A JSX component that renders a grid indicating possible betting ranges.
+ * @component
+ */
 const BettingRange: FunctionalComponent = () => {
   const rows = pocketCardsMatrix();
 
