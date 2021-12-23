@@ -10,11 +10,11 @@
  * Round half point scores up.
  */
 import { arePaired, areSuited, getCardGap, lowerThanX } from './constants';
-import type { ICard } from './constants';
+import type { ICard, ICardValues } from './constants';
 import type { IPocketCardsData } from './pocketCards';
 
 interface IIntermediateScore {
-  readonly cards: ICard[];
+  readonly cards: ICard[] | ICardValues[];
   score: number;
 }
 
@@ -24,7 +24,7 @@ interface IIntermediateScore {
  * are worth half of their rank value.
  * @param card - Any card.
  */
-const scoreCard = (card: ICard): number => {
+const scoreCard = (card: ICard | ICardValues): number => {
   switch (card.rank) {
     case 'A':
       return 10;
@@ -71,7 +71,9 @@ const pairAdjustment = ({ cards, score }: IIntermediateScore): IIntermediateScor
  * @param score - The current score.
  */
 const suitedAdjustment = ({ cards, score }: IIntermediateScore): IIntermediateScore => {
-  if (areSuited(cards)) {
+  const haveSuit = cards.filter(card => 'suit' in card).length;
+
+  if (haveSuit === cards.length && areSuited(cards as ICard[])) {
     return { cards, score: score + 2 };
   }
 
@@ -82,7 +84,8 @@ const suitedAdjustment = ({ cards, score }: IIntermediateScore): IIntermediateSc
  * Checks whether all provided cards are of lower value than a Queen card.
  * @param cards - A list of cards.
  */
-const belowQueen = (cards: ICard[]): boolean => cards.every(card => lowerThanX(card, 11));
+const belowQueen = (cards: ICard[] | ICardValues[]): boolean =>
+  cards.every(card => lowerThanX(card, 11));
 
 /**
  * Adjusts the score based on the gap between the two cards.

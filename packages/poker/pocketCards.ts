@@ -1,7 +1,7 @@
 import { first, peek } from '@mrewers/fp';
 
 import { cardFromRank, getCardGap, RANKS } from './constants';
-import type { ICard } from './constants';
+import type { ICardValues } from './constants';
 
 interface IPocketCards {
   readonly card: string;
@@ -10,8 +10,8 @@ interface IPocketCards {
 
 interface IPocketCardsData {
   readonly gap: number;
-  readonly highCard: ICard;
-  readonly lowCard: ICard;
+  readonly highCard: ICardValues;
+  readonly lowCard: ICardValues;
   readonly pair: boolean;
   readonly suited: boolean | 'N/A';
 }
@@ -99,8 +99,8 @@ export const pocketCardsMatrix = (): IPocketCards[] => {
  * @param shorthand - A two or three letter notation to describe a two card combination.
  */
 export const getDataFromShorthand = (shorthand: string): IPocketCardsData => {
-  const cardOne = cardFromRank(shorthand[0]);
-  const cardTwo = cardFromRank(shorthand[1]);
+  const cardOne = cardFromRank(shorthand[0] as typeof RANKS[number]);
+  const cardTwo = cardFromRank(shorthand[1] as typeof RANKS[number]);
 
   const pair = shorthand.length === 2;
 
