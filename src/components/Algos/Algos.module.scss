@@ -4,10 +4,8 @@
   @include container-primary;
 
   display: flex;
-  overflow: hidden;
 }
 
 .visualization {
-  margin-left: 1rem;
-  width: 100%;
+  @include content-view;
 }

@@ -31,4 +31,6 @@ const Select: FunctionalComponent<ISelectProps> = ({ handler, opts, style: inlin
 
 Select.displayName = 'Select';
 
+export type { IOption, ISelectProps };
+
 export default Select;

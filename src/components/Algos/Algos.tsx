@@ -5,6 +5,7 @@ import type { TPrevious } from '@mrewers/algos/selectionSort';
 import type { FunctionalComponent } from 'preact';
 
 import AlgoControls from './AlgoControls/AlgoControls';
+import ControlPanel from '../ControlPanel/ControlPanel';
 import SelectionSort from './SelectionSort/SelectionSort';
 import style from './Algos.module.scss';
 
@@ -63,17 +64,23 @@ const Algos: FunctionalComponent = () => {
     setValues(initialState);
   };
 
+  const algoOptions = [
+    { label: 'Select Algorithm', value: '' },
+    { label: 'Selection Sort', value: 'selection' },
+  ];
+
   return (
     <div className={style.container}>
-      <AlgoControls
-        algo={algo}
-        handleNext={handleNext}
-        handleReset={reset}
-        handleSort={handleSort}
-        isDone={isDone}
-        isRunning={isRunning}
-        setAlgo={setAlgo}
-      />
+      <ControlPanel current={algo} opts={algoOptions} switcher={setAlgo}>
+        <AlgoControls
+          algo={algo}
+          handleNext={handleNext}
+          handleReset={reset}
+          handleSort={handleSort}
+          isDone={isDone}
+          isRunning={isRunning}
+        />
+      </ControlPanel>
       <div className={style.visualization}>
         {algo === 'selection' && <SelectionSort values={values} />}
       </div>
