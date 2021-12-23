@@ -8,6 +8,10 @@ import Nav from './Nav/Nav';
 import Poker from './Poker/Poker';
 import style from './App.module.scss';
 
+/**
+ * A JSX component that renders the application.
+ * @component
+ */
 const App: FunctionalComponent = () => (
   <div>
     <header>
