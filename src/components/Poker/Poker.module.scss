@@ -2,10 +2,20 @@
 
 .container {
   @include container-primary;
-  align-items: center;
+
   display: flex;
 }
 
+.cards {
+  @include content-view;
+
+  display: grid;
+  grid-template-columns: repeat(13, 100px);
+  gap: 1rem;
+}
+
 .range {
-  width: 50%;
+  @include content-view;
+
+  align-self: center;
 }
