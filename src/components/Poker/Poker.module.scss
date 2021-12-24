@@ -12,6 +12,11 @@
   display: grid;
   grid-template-columns: repeat(13, 100px);
   gap: 1rem;
+
+  @media screen and (min-width: 1795px) {
+    // The columns distribute the cards evenly into rows f 13 accounting for 1rem gap between.
+    grid-template-columns: repeat(13, calc(100% / 13 - 0.92rem));
+  }
 }
 
 .range {
