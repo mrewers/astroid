@@ -1,9 +1,14 @@
+/* eslint-disable @typescript-eslint/no-type-alias */
+type TCardRank = typeof RANKS[number];
+type TCardSuit = typeof SUITS[number];
+type TCardValue = typeof VALUES[number];
+/* eslint-enable */
 interface ICardValues {
-  readonly rank: typeof RANKS[number];
-  readonly value: typeof VALUES[number];
+  readonly rank: TCardRank;
+  readonly value: TCardValue;
 }
 interface ICard extends ICardValues {
-  readonly suit: typeof SUITS[number];
+  readonly suit: TCardSuit;
 }
 
 export const RANKS = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'] as const;
@@ -13,7 +18,7 @@ export const VALUES = [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] as const;
 /**
  * Generates a Map in to store the numeric value of each rank.
  */
-export const rankValueMap = (): Map<typeof RANKS[number], typeof VALUES[number]> => {
+export const rankValueMap = (): Map<TCardRank, TCardValue> => {
   const mapping = [];
 
   for (let i = 0; i < 13; i++) {
@@ -22,7 +27,7 @@ export const rankValueMap = (): Map<typeof RANKS[number], typeof VALUES[number]>
 
   /* eslint-disable @typescript-eslint/consistent-type-assertions */
   /* eslint-disable @typescript-eslint/no-explicit-any */
-  return new Map<typeof RANKS[number], typeof VALUES[number]>(<any>mapping);
+  return new Map<TCardRank, TCardValue>(<any>mapping);
   /* eslint-enable */
 };
 
@@ -30,7 +35,7 @@ export const rankValueMap = (): Map<typeof RANKS[number], typeof VALUES[number]>
  * Retrieves the value of a card based on it's rank.
  * @param rank - The rank of a given card.
  */
-export const getValueOfRank = (rank: typeof RANKS[number]): typeof VALUES[number] | undefined => {
+export const getValueOfRank = (rank: TCardRank): TCardValue | undefined => {
   const mapping = rankValueMap();
 
   return mapping.get(rank);
@@ -57,7 +62,7 @@ export const getRankFromValue = (val: number): string | null => {
  * Construct a card (without it's suit) from the card's rank.
  * @param c - The card's rank.
  */
-export const cardFromRank = (c: typeof RANKS[number]): ICardValues => {
+export const cardFromRank = (c: TCardRank): ICardValues => {
   return { rank: c, value: getValueOfRank(c) ?? 1 };
 };
 
@@ -68,9 +73,7 @@ export const getTheDeck = (): ICard[] => {
   const cards = [] as ICard[];
 
   RANKS.forEach((r, idx) => {
-    SUITS.forEach(s =>
-      cards.push({ rank: r, suit: s, value: (13 - idx) as typeof VALUES[number] })
-    );
+    SUITS.forEach(s => cards.push({ rank: r, suit: s, value: (13 - idx) as TCardValue }));
   });
 
   return cards;
@@ -110,4 +113,4 @@ export const getCardGap = (cards: ICard[] | ICardValues[]): number => {
   return diff > 1 ? diff - 1 : 0;
 };
 
-export type { ICard, ICardValues };
+export type { ICard, ICardValues, TCardRank, TCardSuit, TCardValue };

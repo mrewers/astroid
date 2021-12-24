@@ -1,4 +1,4 @@
-import type { ICard } from '../constants';
+import type { ICard, TCardRank, TCardSuit, TCardValue } from '../constants';
 
 /**
  * Combines the three card properties into a single card object.
@@ -6,7 +6,7 @@ import type { ICard } from '../constants';
  * @param suit - One of the four possible suits.
  * @param value - A numeric value from 1-13 corresponding to the to the rank.
  */
-const generateCard = (rank: string, suit: string, value: number): ICard => {
+const generateCard = (rank: TCardRank, suit: TCardSuit, value: TCardValue): ICard => {
   return { rank, suit, value };
 };
 

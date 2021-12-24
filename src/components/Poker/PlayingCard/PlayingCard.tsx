@@ -1,13 +1,13 @@
 import { h } from 'preact';
 import { getRankFromValue } from '@mrewers/poker/constants';
-import type { SUITS, VALUES } from '@mrewers/poker/constants';
+import type { TCardSuit, TCardValue } from '@mrewers/poker/constants';
 import type { FunctionalComponent } from 'preact';
 
 import style from './PlayingCard.module.scss';
 
 interface IPlayingCardProps {
-  readonly suit: typeof SUITS[number];
-  readonly value: typeof VALUES[number];
+  readonly suit: TCardSuit;
+  readonly value: TCardValue;
 }
 
 /**
@@ -29,7 +29,7 @@ const displayMarkings = (suit: string, value: number, inverted = false): h.JSX.E
  *  - black for clubs and spades
  * @param suit - Which of the four suits the given card belongs to.
  */
-const determineColor = (suit: typeof SUITS[number]): Record<'color', string> => {
+const determineColor = (suit: TCardSuit): Record<'color', string> => {
   if (suit === 'hearts' || suit === 'diamonds') {
     return { color: 'var(--red)' };
   }
