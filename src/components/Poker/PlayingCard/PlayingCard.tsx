@@ -46,10 +46,11 @@ const determineColor = (suit: TCardSuit): Record<'color', string> => {
  */
 const PlayingCard: FunctionalComponent<IPlayingCardProps> = ({ suit, value }) => (
   <div className={style.card} style={{ '--aspect-ratio': '89/64' }}>
-    <div className={style.contents} style={determineColor(suit)}>
+    <div className={style.front} style={determineColor(suit)}>
       {displayMarkings(suit, value)}
       {displayMarkings(suit, value, true)}
     </div>
+    <div className={style.back} />
   </div>
 );
 

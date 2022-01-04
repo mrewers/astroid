@@ -1,18 +1,54 @@
-.card {
-  background-color: var(--white);
+@mixin card-content {
+  backface-visibility: hidden;
   border: 1px solid var(--grey);
   border-radius: 0.5rem;
   box-shadow: 2px 1px 3px 2px rgba(224, 224, 224, 0.5);
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  transition: all 0.8s ease;
+  overflow: hidden;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
 }
 
-.contents {
-  padding: 1rem;
+.back {
+  @include card-content;
+
+  background-color: var(--red);
+}
+
+.front {
+  @include card-content;
+
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 1rem;
+  transform: rotateY(180deg);
+}
+
+.card {
+  flex: initial;
+  -moz-perspective: 200rem;
+  perspective: 200rem;
+
+  &:hover > .back {
+    transform: rotateY(-180deg);
+  }
+
+  &:hover > .front {
+    transform: rotateY(0);
+  }
 }
 
 .rank {
   display: flex;
   flex-direction: column;
+
+  > span:first-of-type {
+    font-weight: 600;
+  }
 }
