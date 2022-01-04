@@ -29,7 +29,12 @@ const Poker: FunctionalComponent = () => {
       {view === '' && (
         <div className={style.cards}>
           {deck.map(card => (
-            <PlayingCard key={`${card.suit}-${card.rank}`} suit={card.suit} value={card.value} />
+            <PlayingCard
+              key={`${card.suit}-${card.rank}`}
+              flip
+              suit={card.suit}
+              value={card.value}
+            />
           ))}
         </div>
       )}

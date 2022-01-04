@@ -27,13 +27,18 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 1rem;
-  transform: rotateY(180deg);
 }
 
 .card {
   flex: initial;
   -moz-perspective: 200rem;
   perspective: 200rem;
+}
+
+.flip {
+  > .front {
+    transform: rotateY(180deg);
+  }
 
   &:hover > .back {
     transform: rotateY(-180deg);
