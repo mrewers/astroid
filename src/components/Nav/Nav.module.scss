@@ -2,10 +2,6 @@
   padding: 0 1rem;
 }
 
-.active {
-  border-bottom: 2px solid var(--white);
-}
-
 .list {
   display: flex;
   list-style: none;
@@ -14,14 +10,24 @@
     margin: 0.5rem;
 
     > a {
+      border: 2px solid transparent;
+      border-radius: 3px;
       color: var(--white);
       font-weight: normal;
       padding: 0.2rem 0.5rem;
 
+      &:focus {
+        border-color: var(--white);
+        outline: none;
+      }
+
       &:hover {
         background-color: var(--green);
-        border-radius: 3px;
         color: var(--violet);
+      }
+
+      &.active {
+        border-bottom: 2px solid var(--white);
       }
     }
 
