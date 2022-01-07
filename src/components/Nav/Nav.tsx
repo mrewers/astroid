@@ -13,6 +13,11 @@ const Nav: FunctionalComponent = () => (
         </Link>
       </li>
       <li>
+        <Link activeClassName={style.active} href="/ast">
+          AST
+        </Link>
+      </li>
+      <li>
         <Link activeClassName={style.active} href="/algos">
           Algos
         </Link>

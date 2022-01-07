@@ -4,6 +4,7 @@ import type { FunctionalComponent } from 'preact';
 
 import Algos from './Algos/Algos';
 import Astroid from './Astroid/Astroid';
+import Home from './Home/Home';
 import Nav from './Nav/Nav';
 import Poker from './Poker/Poker';
 import style from './App.module.scss';
@@ -20,7 +21,8 @@ const App: FunctionalComponent = () => (
     </header>
     <main>
       <Router>
-        <Astroid path="/" />
+        <Home path="/" />
+        <Astroid path="/ast" />
         <Algos path="/algos" />
         <Poker path="/poker" />
       </Router>
