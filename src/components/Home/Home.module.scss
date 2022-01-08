@@ -3,3 +3,48 @@
 .container {
   @include container-primary;
 }
+
+.cards {
+  display: flex;
+  margin: 1rem;
+  justify-content: center;
+
+  > a {
+    border: 5px solid transparent;
+    border-radius: 0.8rem;
+    max-width: 300px;
+    margin: 0 1rem;
+    width: 100%;
+
+    &:focus {
+      border: 5px solid var(--green);
+      outline: none;
+
+      article {
+        box-shadow: none;
+        border-color: var(--green);
+      }
+
+      figcaption {
+        display: flex;
+      }
+
+      img {
+        opacity: 0.5;
+      }
+
+      strong {
+        opacity: 0.2;
+      }
+    }
+  }
+}
+
+.section {
+  padding-top: 1.5rem;
+}
+
+.title {
+  color: var(--violet);
+  text-align: center;
+}
