@@ -1,0 +1,12 @@
+{
+  "name": "Astroid",
+  "short_name": "Astroid",
+  "icons": [
+    { "src": "/icon/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "background_color": "#256eff",
+  "theme_color": "#46237a",
+  "display": "standalone",
+  "lang": "en-US"
+}

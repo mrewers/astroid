@@ -1810,7 +1810,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mrewers/algos@workspace:^, @mrewers/algos@workspace:packages/algos":
+"@mrewers/algos@workspace:*, @mrewers/algos@workspace:packages/algos":
   version: 0.0.0-use.local
   resolution: "@mrewers/algos@workspace:packages/algos"
   languageName: unknown
@@ -1827,7 +1827,7 @@ __metadata:
     "@cryptopapers/commitlint-config": ^1.0.0
     "@cryptopapers/eslint-config": ^2.1.0
     "@cryptopapers/prettier-config": ^1.1.0
-    "@mrewers/algos": "workspace:^"
+    "@mrewers/algos": "workspace:*"
     "@mrewers/fp": "workspace:*"
     "@mrewers/parser": "workspace:*"
     "@mrewers/poker": "workspace:*"
