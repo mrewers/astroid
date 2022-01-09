@@ -13,7 +13,10 @@ const sections = [
           caption:
             'A custom parser that converts JavaScript snippets into a structural representation of the code.',
           credit: 'Photo by Ron Whitaker on Unsplash.',
-          url: '/static/branch.jpg',
+          formats: [
+            { type: 'webp', url: '/static/webp/branch.webp' },
+            { fallback: true, type: 'jpeg', url: '/static/branch.jpg' },
+          ],
         },
         name: 'Abstract Syntax Tree',
         path: '/ast',
@@ -23,7 +26,10 @@ const sections = [
           alt: 'A chalkboard covered in mathematical notations.',
           caption: 'Visualizations illustrating common programming algorithms.',
           credit: 'Photo by Dan-Cristian Pădureț on Unsplash.',
-          url: '/static/algos.jpg',
+          formats: [
+            { type: 'webp', url: '/static/webp/algos.webp' },
+            { fallback: true, type: 'jpeg', url: '/static/algos.jpg' },
+          ],
         },
         name: 'Algorithms',
         path: '/algos',
@@ -38,7 +44,10 @@ const sections = [
           alt: 'A deck of playing cards haphazardly spread out face up.',
           caption: "Tools to help understand playing strategies for Texas Hold'em poker.",
           credit: 'Photo by Amanda Jones on Unsplash.',
-          url: '/static/poker.jpg',
+          formats: [
+            { type: 'webp', url: '/static/webp/poker.webp' },
+            { fallback: true, type: 'jpeg', url: '/static/poker.jpg' },
+          ],
         },
         name: 'Poker',
         path: '/poker',
