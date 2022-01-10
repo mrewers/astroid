@@ -15,7 +15,7 @@ const sections = [
           credit: 'Photo by Ron Whitaker on Unsplash.',
           formats: [
             { type: 'webp', url: '/static/webp/branch.webp' },
-            { fallback: true, type: 'jpeg', url: '/static/branch.jpg' },
+            { fallback: true, type: 'jpeg', url: '/static/jpg/branch.jpg' },
           ],
         },
         name: 'Abstract Syntax Tree',
@@ -28,7 +28,7 @@ const sections = [
           credit: 'Photo by Dan-Cristian Pădureț on Unsplash.',
           formats: [
             { type: 'webp', url: '/static/webp/algos.webp' },
-            { fallback: true, type: 'jpeg', url: '/static/algos.jpg' },
+            { fallback: true, type: 'jpeg', url: '/static/jpg/algos.jpg' },
           ],
         },
         name: 'Algorithms',
@@ -46,7 +46,7 @@ const sections = [
           credit: 'Photo by Amanda Jones on Unsplash.',
           formats: [
             { type: 'webp', url: '/static/webp/poker.webp' },
-            { fallback: true, type: 'jpeg', url: '/static/poker.jpg' },
+            { fallback: true, type: 'jpeg', url: '/static/jpg/poker.jpg' },
           ],
         },
         name: 'Poker',
