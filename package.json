@@ -6,6 +6,7 @@
     "dev": "snowpack dev",
     "build": "snowpack build",
     "lint": "eslint ./",
+    "optimize": "node packages/optimizer",
     "prepare": "husky install .config/husky",
     "test": "jest ./"
   },
