@@ -52,6 +52,19 @@ const sections = [
         name: 'Poker',
         path: '/poker',
       },
+      {
+        image: {
+          alt: 'An old, weathered paper Morse code practice booklet on a dark wood table.',
+          caption: 'Practice communicating with Morse code.',
+          credit: 'Photo by Chris Curry on Unsplash.',
+          formats: [
+            { type: 'webp', url: '/static/webp/morse.webp' },
+            { fallback: true, type: 'jpeg', url: '/static/jpg/morse.jpg' },
+          ],
+        },
+        name: 'Morse Code',
+        path: '/morse',
+      },
     ],
     title: 'Play',
   },

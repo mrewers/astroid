@@ -7,6 +7,7 @@ import type { RouterOnChangeArgs } from 'preact-router';
 import Algos from './Algos/Algos';
 import Astroid from './Astroid/Astroid';
 import Home from './Home/Home';
+import Morse from './Morse/Morse';
 import Nav from './Nav/Nav';
 import Poker from './Poker/Poker';
 import style from './App.module.scss';
@@ -35,6 +36,9 @@ const App: FunctionalComponent = () => {
       case '/ast':
         setNewTitle('AST');
         break;
+      case '/morse':
+        setNewTitle('Morse Code');
+        break;
       case '/poker':
         setNewTitle('Poker');
         break;
@@ -55,6 +59,7 @@ const App: FunctionalComponent = () => {
           <Astroid path="/ast" />
           <Algos path="/algos" />
           <Poker path="/poker" />
+          <Morse path="/morse" />
         </Router>
       </main>
     </div>
