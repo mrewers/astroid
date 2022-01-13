@@ -1,0 +1,7 @@
+@import '../../style/mixins.scss';
+
+.container {
+  @include container-primary;
+
+  display: flex;
+}
