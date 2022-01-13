@@ -1,11 +1,10 @@
 @import '../../style/mixins.scss';
 
 .input {
-  border: 1px solid var(--grey);
-  border-radius: 0.5rem;
+  @include textarea-reset;
+
   font-family: var(--fontFamilyCode);
   height: calc(100% - 4.5rem);
-  padding: 1rem;
   width: 100%;
 }
 
@@ -17,6 +16,7 @@
 
 .panes {
   @include container-min-height;
+
   height: 100%;
   display: grid;
   gap: 1rem;

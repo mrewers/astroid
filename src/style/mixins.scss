@@ -48,3 +48,9 @@
   padding-left: 1rem;
   width: 100%;
 }
+
+@mixin textarea-reset {
+  border: 1px solid var(--grey);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
