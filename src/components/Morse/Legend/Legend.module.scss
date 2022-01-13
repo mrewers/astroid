@@ -1,0 +1,28 @@
+.container {
+  padding: 1rem 0;
+}
+
+.table {
+  border-collapse: collapse;
+  font-size: var(--fontSizeSmall);
+  margin: 0 auto;
+
+  td,
+  th {
+    padding: 0.5rem;
+    text-align: left;
+  }
+
+  th {
+    border-bottom: 1px solid var(--black);
+  }
+
+  tr > td:first-of-type,
+  tr > th:first-of-type {
+    border-right: 1px solid var(--black);
+  }
+
+  .emphasize {
+    font-weight: 600;
+  }
+}
