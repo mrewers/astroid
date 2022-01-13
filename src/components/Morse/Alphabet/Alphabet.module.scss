@@ -1,0 +1,26 @@
+@import '../../../style/mixins.scss';
+
+.container {
+  @include content-view;
+}
+
+.grid {
+  align-items: center;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.cell {
+  color: var(--violet);
+  font-size: var(--fontSizeMedium);
+  font-weight: 600;
+
+  > span {
+    padding: 1rem;
+
+    &:first-of-type {
+      color: var(--blue);
+    }
+  }
+}
