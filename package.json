@@ -15,6 +15,7 @@
   "dependencies": {
     "@mrewers/algos": "workspace:*",
     "@mrewers/fp": "workspace:*",
+    "@mrewers/morse": "workspace:*",
     "@mrewers/parser": "workspace:*",
     "@mrewers/poker": "workspace:*",
     "@snowpack/plugin-sass": "^1.4.0",

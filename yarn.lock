@@ -1861,6 +1861,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@mrewers/morse@workspace:packages/morse":
+  version: 0.0.0-use.local
+  resolution: "@mrewers/morse@workspace:packages/morse"
+  languageName: unknown
+  linkType: soft
+
 "@mrewers/parser@workspace:*, @mrewers/parser@workspace:packages/parser":
   version: 0.0.0-use.local
   resolution: "@mrewers/parser@workspace:packages/parser"

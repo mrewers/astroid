@@ -1,0 +1,11 @@
+{
+  "name": "@mrewers/morse",
+  "version": "0.0.1",
+  "description": "Morse code translator.",
+  "main": "parser.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marek Rewers",
+  "license": "MIT"
+}
