@@ -1,7 +1,6 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { getTheDeck } from '@mrewers/poker/constants';
-import shuffle from '@mrewers/poker/shuffle';
+import { constants, shuffle } from '@mrewers/poker';
 import type { FunctionalComponent } from 'preact';
 
 import BettingRange from './BettingRange/BettingRange';
@@ -21,7 +20,7 @@ const pokerOptions = [
 const Poker: FunctionalComponent = () => {
   const [view, setView] = useState('');
 
-  const deck = shuffle(getTheDeck());
+  const deck = shuffle(constants.getTheDeck());
 
   return (
     <div className={style.container}>

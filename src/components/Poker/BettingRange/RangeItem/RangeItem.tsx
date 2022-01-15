@@ -1,8 +1,7 @@
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import type { FunctionalComponent } from 'preact';
-import { getDataFromShorthand } from '@mrewers/poker/pocketCards';
-import { calculateChenFromData } from '@mrewers/poker/chen';
+import { chen, pocket } from '@mrewers/poker';
 
 import style from './RangeItem.module.scss';
 
@@ -17,16 +16,16 @@ interface IRangeItemProps {
  * @param props.item - A representation of any two-card combination.
  */
 const RangeItem: FunctionalComponent<IRangeItemProps> = ({ item }) => {
-  const [chen, setChen] = useState(0);
+  const [chenScore, setChenScore] = useState(0);
 
   useEffect(() => {
-    const data = getDataFromShorthand(item);
+    const data = pocket.getDataFromShorthand(item);
 
-    setChen(calculateChenFromData(data));
+    setChenScore(chen.calculateChenFromData(data));
   }, [item]);
 
   return (
-    <div className={style.item} data-chen={chen}>
+    <div className={style.item} data-chen={chenScore}>
       {item}
     </div>
   );

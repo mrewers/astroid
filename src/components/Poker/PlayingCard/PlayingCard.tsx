@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { getRankFromValue } from '@mrewers/poker/constants';
+import { constants } from '@mrewers/poker';
 import type { TCardSuit, TCardValue } from '@mrewers/poker/constants';
 import type { FunctionalComponent } from 'preact';
 
@@ -18,7 +18,7 @@ interface IPlayingCardProps {
  * @param inverted - Whether it appears at the base of the card and hence should be upside down.
  */
 const displayMarkings = (suit: string, value: number, inverted = false): h.JSX.Element => {
-  const rank = getRankFromValue(value);
+  const rank = constants.getRankFromValue(value);
 
   return (
     <div className={style.rank} style={inverted ? { transform: 'rotate(180deg)' } : {}}>
