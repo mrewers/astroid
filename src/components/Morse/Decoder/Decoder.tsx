@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import type { FunctionalComponent } from 'preact';
-import { parseMorse, parseText } from '@mrewers/morse/parser';
+import { parseMorse, parseText } from '@mrewers/morse';
 
 import style from './Decoder.module.scss';
 

@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import CHARS from '@mrewers/morse/constants';
-import { convertBinaryToMorse } from '@mrewers/morse/translator';
+import { translate } from '@mrewers/morse';
 import type { FunctionalComponent } from 'preact';
 
 import style from './Alphabet.module.scss';
@@ -16,7 +16,7 @@ const getCharValues = (map: Map<string, string>): ICharData[] => {
 
   // eslint-disable-next-line no-restricted-syntax
   for (const [key, value] of map) {
-    values.push({ binary: value, char: key, morse: convertBinaryToMorse(value) });
+    values.push({ binary: value, char: key, morse: translate.convertBinaryToMorse(value) });
   }
 
   return values;
