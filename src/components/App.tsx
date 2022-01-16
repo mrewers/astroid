@@ -4,12 +4,12 @@ import { Router } from 'preact-router';
 import type { FunctionalComponent } from 'preact';
 import type { RouterOnChangeArgs } from 'preact-router';
 
-import Algos from './Algos/Algos';
-import Astroid from './Astroid/Astroid';
-import Home from './Home/Home';
-import Morse from './Morse/Morse';
+import Algos from './Pages/Algos/Algos';
+import Astroid from './Pages/Astroid/Astroid';
+import Home from './Pages/Home/Home';
+import Morse from './Pages/Morse/Morse';
 import Nav from './Nav/Nav';
-import Poker from './Poker/Poker';
+import Poker from './Pages/Poker/Poker';
 import style from './App.module.scss';
 
 /**

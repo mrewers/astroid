@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import type { FunctionalComponent } from 'preact';
 
-import Button from '../../Button/Button';
+import Button from '../../../Button/Button';
 import style from './AlgoControls.module.scss';
 
 interface IAlgoControlsProps {

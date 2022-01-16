@@ -4,7 +4,7 @@ import { constants, shuffle } from '@mrewers/poker';
 import type { FunctionalComponent } from 'preact';
 
 import BettingRange from './BettingRange/BettingRange';
-import ControlPanel from '../ControlPanel/ControlPanel';
+import ControlPanel from '../../ControlPanel/ControlPanel';
 import PlayingCard from './PlayingCard/PlayingCard';
 import style from './Poker.module.scss';
 
