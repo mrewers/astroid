@@ -51,10 +51,13 @@ module.exports = {
         'sort-imports': 'off',
       },
       settings: {
+        'import/resolver': {
+          'typescript': {}
+        },
         react: {
           pragma: 'h',
           version: '16', // Since we're using Preact, we manually specify the React version.
-        }
+        },
       }
     },
     {

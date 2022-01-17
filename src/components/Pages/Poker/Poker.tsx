@@ -3,8 +3,8 @@ import { useState } from 'preact/hooks';
 import { constants, shuffle } from '@mrewers/poker';
 import type { FunctionalComponent } from 'preact';
 
+import ControlPanel from 'components/ControlPanel/ControlPanel';
 import BettingRange from './BettingRange/BettingRange';
-import ControlPanel from '../../ControlPanel/ControlPanel';
 import PlayingCard from './PlayingCard/PlayingCard';
 import style from './Poker.module.scss';
 

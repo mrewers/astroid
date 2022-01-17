@@ -1,7 +1,9 @@
 const snowpackConfig = {
   alias: {
+    components: './src/components',
     react: 'preact/compat',
     'react-dom': 'preact/compat',
+    style: './src/style',
   },
   mount: {
     public: {
@@ -11,7 +13,14 @@ const snowpackConfig = {
     src: { url: '/dist' },
   },
   plugins: [
-    '@snowpack/plugin-sass',
+    [
+      '@snowpack/plugin-sass',
+      {
+        compilerOptions: {
+          loadPath: './src',
+        },
+      },
+    ],
     '@snowpack/plugin-typescript'
   ],
   routes: [

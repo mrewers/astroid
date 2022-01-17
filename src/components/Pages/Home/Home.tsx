@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import type { FunctionalComponent } from 'preact';
 
-import Card from '../../Card/Card';
+import Card from 'components/Card/Card';
 import style from './Home.module.scss';
 
 const sections = [

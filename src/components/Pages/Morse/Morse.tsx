@@ -3,7 +3,7 @@ import { useState } from 'preact/hooks';
 import type { FunctionalComponent } from 'preact';
 
 import Alphabet from './Alphabet/Alphabet';
-import ControlPanel from '../../ControlPanel/ControlPanel';
+import ControlPanel from 'components/ControlPanel/ControlPanel';
 import Decoder from './Decoder/Decoder';
 import Legend from './Legend/Legend';
 import style from './Morse.module.scss';

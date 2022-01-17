@@ -2,7 +2,7 @@
   "compilerOptions": {
     "allowJs": true,
     "alwaysStrict": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
@@ -19,6 +19,11 @@
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "paths": {
+      "components/*": [
+        "./src/components/*"
+      ]
+    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,

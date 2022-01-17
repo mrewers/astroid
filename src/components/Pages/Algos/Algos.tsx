@@ -5,7 +5,7 @@ import type { TPrevious } from '@mrewers/algos/selectionSort';
 import type { FunctionalComponent } from 'preact';
 
 import AlgoControls from './AlgoControls/AlgoControls';
-import ControlPanel from '../../ControlPanel/ControlPanel';
+import ControlPanel from 'components/ControlPanel/ControlPanel';
 import SelectionSort from './SelectionSort/SelectionSort';
 import style from './Algos.module.scss';
 

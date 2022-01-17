@@ -37,6 +37,7 @@
     "@typescript-eslint/parser": "^4.0.0",
     "commitlint": "^14.1.0",
     "eslint": "^7.30.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.23.0",
     "eslint-plugin-jest": "^24.0.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
